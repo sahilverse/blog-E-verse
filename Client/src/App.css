@@ -1,0 +1,13 @@
+/* Scroll Animation for the Navbar */
+.scrolled{
+    background-color: #fff;
+    box-shadow: 1px 0px 7px 1px rgba(20,19,19,0.75);
+    -webkit-box-shadow: 1px 0px 7px 1px rgba(20,19,19,0.75);
+    -moz-box-shadow: 1px 0px 7px 1px rgba(20,19,19,0.75);
+    transition: all 0.3s;
+    z-index: 1000;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;                                                                        
+}
