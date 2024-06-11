@@ -38,17 +38,17 @@ export default function Navbar() {
     return (
         <>
             <div className={`${isScroll ? 'scrolled' : ''} ${isDarkMode ? "bg-base-100" : "bg-background"}`}>
-                <div className="navbar container mx-auto flex justify-between pt-6">
+                <div className="navbar lg:container mx-auto flex justify-between pt-6">
                     <div>
                         <Link className="btn btn-ghost text-xl" to="/">blogEverse</Link>
                     </div>
 
                     {/* NavLinks starts */}
                     <div className="hidden lg:flex gap-4">
-                        <Link className="btn btn-ghost" to="/">Home</Link>
-                        <Link className="btn btn-ghost" to="/discover">Discover</Link>
-                        <Link className="btn btn-ghost" to="/create">Create</Link>
-                        <Link className="btn btn-ghost" to="/dashboard">Dashboard</Link>
+                        <Link className="btn btn-ghost" to="/"><span className='font-bold'>Home</span></Link>
+                        <Link className="btn btn-ghost" to="/discover"><span className='font-bold'>Discover</span></Link>
+                        <Link className="btn btn-ghost" to="/create"><span className='font-bold'>Create</span></Link>
+                        <Link className="btn btn-ghost" to="/dashboard"><span className='font-bold'>Dashboard</span></Link>
                     </div>
                     {/* NavLinks ends */}
 

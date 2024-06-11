@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import Hero from './subcomponents/home/hero'
+import Hero from './subcomponents/home/Hero'
 import Discover from './subcomponents/home/Discover'
 import Create from './subcomponents/home/Create'
 import Engage from './subcomponents/home/Engage'

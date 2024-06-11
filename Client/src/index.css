@@ -8,6 +8,12 @@
 html{
     scroll-behavior: smooth;
 }
+
+*,*::after,*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 /* Fonts */
 :root{
     --Roboto-font: 'Roboto', sans-serif;
@@ -30,3 +36,5 @@ html{
     line-height: 2;
 
 }
+
+

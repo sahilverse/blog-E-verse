@@ -14,7 +14,7 @@ export default function Create() {
 
                     <div className="div flex justify-center item mt-4">
 
-                        <button className='btn btn-primary flex-shrink-0 w-40 h-4 rounded-full tracking-wider bg-sage border-none text-brunsickGreen uppercase hover:bg-sage' onClick={() => navigate("/create")}>Create</button>
+                        <button className='btn btn-primary flex-shrink-0 w-40 h-4 rounded-full tracking-wider bg-sage border-none text-brunsickGreen uppercase hover:bg-sage' onClick={() => navigate("/create")}>get started</button>
                     </div>
                 </div>
                 <div className='w-1/3 h-1/3 flex-shrink-0 mt-14'>
