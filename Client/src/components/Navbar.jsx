@@ -63,7 +63,7 @@ export default function Navbar() {
                             </div>
                             {/* Theme Controller End */}
 
-                            <input type="text" placeholder="Search" className="input input-bordered w-24 bg-transparent md:w-auto" />
+                            {/* <input type="text" placeholder="Search" className="input input-bordered w-24 bg-transparent md:w-auto" /> */}
                         </div>
 
 

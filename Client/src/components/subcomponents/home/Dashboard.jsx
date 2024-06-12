@@ -12,7 +12,7 @@ export default function Dashboard() {
 
                 </div>
                 <div className='w-1/3 h-1/3 flex-shrink-0 mt-14'>
-                    <img src="/home/dashboard.svg" alt="" className='w-full h-full' />
+                    {/* <img src="/home/dashboard.svg" alt="" className='w-full h-full' /> */}
                 </div>
             </div>
         </section>
