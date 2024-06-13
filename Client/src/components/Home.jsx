@@ -20,15 +20,17 @@ export default function Home() {
             {/* Discover Section */}
             <Discover />
             {/* Discover Section */}
-            {/* create section */}
-            <Create />
-            {/* create section */}
-            {/* Engage Section */}
-            <Engage />
-            {/* Engage Section */}
-            {/* Dashboard Section */}
 
-            <Dashboard />
+            {/* create section */}
+            {/* <Create /> */}
+            {/* create section */}
+
+            {/* Engage Section */}
+            {/* <Engage /> */}
+            {/* Engage Section */}
+
+            {/* Dashboard Section */}
+            {/* <Dashboard /> */}
             {/* Dashboard Section */}
 
 

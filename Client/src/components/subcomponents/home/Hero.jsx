@@ -5,11 +5,11 @@ export default function Hero() {
     const navigate = useNavigate()
     return (
         <section id='hero' className=' mt-8 lg:mt-20  lg:pl-6 xl:px-0 flex sm:items-center sm:justify-center'>
-            <div className="container flex lg:justify-center lg:flex-row xl:mr-auto xl:ml-0 lg:gap-6 xl:p-14 xl:py-24 2xl:gap-24  lg:py-12 lg:items-start flex-col-reverse items-center gap-16 py-10 overflow-x-hidden">
+            <div className="container flex lg:justify-center lg:flex-row xl:mr-auto xl:ml-0 lg:gap-6 xl:p-14 xl:py-24 2xl:gap-24  lg:py-12 lg:items-start flex-col-reverse items-center gap-16 pt-10 overflow-x-hidden">
                 <div className='flex flex-col gap-8 lg:gap-6 justify-center  lg:ml-6 lg:pl-24 xl:pl-0'>
                     <div className='flex gap-6 md:gap-10 flex-col items-center'>
-                        <h1 className="text-xl sm:text-3xl lg:mr-20 md:mr-0  md:text-4xl font-bold text-orange md:text-center whitespace-nowrap lg:text-4xl ">Welcome to Blog-E-verse</h1>
-                        <p className="text-justify text-sm sm:text-base px-4 md:px-6 lg:p-0">where words come to life and stories find their home! Dive into a world of creativity, connection, and community as you unleash your inner writer, connect with fellow bloggers, and embark on an exciting journey of self-expression and discovery. With Blog-E-verse, every keystroke brings you closer to sharing your voice, shaping conversations, and making your mark in the blogosphere. Join us today and let your story unfold!
+                        <h1 className="text-xl sm:text-3xl lg:mr-20 md:mr-0  md:text-4xl font-bold text-orange md:text-center whitespace-nowrap font-poppins">Welcome to Blog-E-verse</h1>
+                        <p className=" leading-relaxed text-justify text-sm sm:text-base px-4 md:px-6 lg:p-0 font-roboto ">where words come to life and stories find their home! Dive into a world of creativity, connection, and community as you unleash your inner writer, connect with fellow bloggers, and embark on an exciting journey of self-expression and discovery. With Blog-E-verse, every keystroke brings you closer to sharing your voice, shaping conversations, and making your mark in the blogosphere. Join us today and let your story unfold!
 
                         </p>
                     </div>

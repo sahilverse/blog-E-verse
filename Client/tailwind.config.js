@@ -5,7 +5,15 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'roboto': ['Roboto', 'sans-serif'],
+        'poppins': ['Poppins', 'sans-serif'],
+      },
+      lineHeight:{
+        'relaxed': '1.625',
+      }
+    },
     colors:{
       "timberwolf": "#DAD7CD",
       "sage": "#A3B18A",

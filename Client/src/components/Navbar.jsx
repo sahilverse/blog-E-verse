@@ -21,6 +21,7 @@ export default function Navbar() {
             setIsScroll(false);
         };
     };
+
     useEffect(() => {
         window.addEventListener('scroll', changeNavbar);
 
