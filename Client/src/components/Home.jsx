@@ -22,7 +22,7 @@ export default function Home() {
             {/* Discover Section */}
 
             {/* create section */}
-            {/* <Create /> */}
+            <Create />
             {/* create section */}
 
             {/* Engage Section */}
