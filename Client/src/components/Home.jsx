@@ -26,11 +26,11 @@ export default function Home() {
             {/* create section */}
 
             {/* Engage Section */}
-            {/* <Engage /> */}
+            <Engage />
             {/* Engage Section */}
 
             {/* Dashboard Section */}
-            {/* <Dashboard /> */}
+            <Dashboard />
             {/* Dashboard Section */}
 
 

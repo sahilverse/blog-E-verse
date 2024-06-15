@@ -5,7 +5,7 @@ export default function Create() {
     const navigate = useNavigate()
     return (
         <section id='create' className='mt-14 mb-10 lg:px-0 px-4 '>
-            <div className="container mx-auto rounded-lg sm:p-14 py-10 p-10 flex justify-center  lg:gap-20 xl:gap-72 bg-timberwolf lg:flex-row flex-col-reverse items-center gap-16  ">
+            <div className="container mx-auto rounded-lg sm:p-14 py-10 p-10 flex justify-center lg:gap-20 xl:gap-72 bg-timberwolf lg:flex-row flex-col-reverse items-center gap-16  ">
                 <div className='flex flex-col gap-6 justify-center xl:ml-20 lg:ml-0'>
                     <div className='flex gap-10 flex-col'>
                         <h1 className="font-bold text-orange  whitespace-nowrap font-poppins lg:text-center xl:text-start text-xl sm:text-3xl md:text-4xl">Create</h1>
