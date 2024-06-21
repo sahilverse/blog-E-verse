@@ -4,7 +4,7 @@ import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Footer from './components/Footer'
 import { NotFound } from './components/NotFound'
-import { MobileNav } from './components/subcomponents/navbar/MobileNav'
+import { Login } from './components/Login'
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/mobile" element={<MobileNav />} />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

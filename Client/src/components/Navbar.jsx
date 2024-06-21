@@ -44,7 +44,7 @@ export default function Navbar() {
                     {/* Login Button */}
 
                     <div>
-                        <Link to='/login' class="customBtn-primary">Login</Link>
+                        <Link to='/login' className="customBtn-primary">Login</Link>
                     </div>
                     {/* Login Button ends */}
 

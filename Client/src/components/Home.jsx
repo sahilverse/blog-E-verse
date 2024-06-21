@@ -1,15 +1,14 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import Hero from './subcomponents/home/Hero'
 import Discover from './subcomponents/home/Discover'
 import Create from './subcomponents/home/Create'
 import Engage from './subcomponents/home/Engage'
 import Dashboard from './subcomponents/home/Dashboard'
+import FaqsComponent from './FaqsComponent'
 
 
 
 export default function Home() {
-    const navigate = useNavigate()
 
     return (
         <>
@@ -32,6 +31,9 @@ export default function Home() {
             {/* Dashboard Section */}
             <Dashboard />
             {/* Dashboard Section */}
+
+            {/* faq section */}
+            <FaqsComponent />
 
 
         </>
