@@ -1,5 +1,8 @@
 import React from 'react'
-
+/**
+ * Renders the Engage section of the home page.
+ * @returns {JSX.Element} The rendered Engage section.
+ */
 export default function Engage() {
     return (
         <section id="engage" className='lg:mt-14 mt-5'>

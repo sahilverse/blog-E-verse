@@ -1,6 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+/**
+ * Renders the Discover component.
+ * 
+ * @returns {JSX.Element} The rendered Discover component.
+ */
 export default function Discover() {
 
     return (

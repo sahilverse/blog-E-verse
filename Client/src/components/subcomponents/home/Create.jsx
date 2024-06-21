@@ -1,6 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+/**
+ * Renders the Create section.
+ * 
+ * @returns {JSX.Element} The Create section component.
+ */
 export default function Create() {
 
     return (

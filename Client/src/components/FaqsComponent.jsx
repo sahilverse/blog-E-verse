@@ -37,12 +37,19 @@ const FaqsComponent = () => {
     ];
 
     const FaqsCard = ({ faqsList, idx }) => {
+        // Create a reference to the answer element
         const answerElRef = useRef();
+
+        // Set up state variables for toggling the answer visibility and height
         const [state, setState] = useState(false);
         const [answerH, setAnswerH] = useState('0px');
 
+        // Function to handle opening/closing the answer
         const handleOpenAnswer = () => {
+            // Get the height of the answer element
             const answerElH = answerElRef.current.childNodes[0].offsetHeight;
+
+            // Toggle the state and set the height of the answer element
             setState(!state);
             setAnswerH(`${answerElH + 20}px`);
         };

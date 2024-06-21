@@ -1,5 +1,9 @@
 import React from 'react'
 
+/**
+ * Renders the Dashboard component.
+ * @returns {JSX.Element} The rendered Dashboard component.
+ */
 export default function Dashboard() {
     return (
         <section id="dashboard" className='mt-20 mb-10 px-2 lg:px-0'>

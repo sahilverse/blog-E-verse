@@ -1,6 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+/**
+ * Renders the Hero section of the home page.
+ * @returns {JSX.Element} The rendered Hero section.
+ */
 export default function Hero() {
 
     return (

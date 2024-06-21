@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 import { PiEyeSlashThin } from "react-icons/pi";
 import { PiEyeThin } from "react-icons/pi";
 
+/**
+ * Renders a login component.
+ * @returns {JSX.Element} The login component.
+ */
 export const Login = () => {
     const passwordRef = useRef(null);
     const [showPassword, setShowPassword] = useState(false);
@@ -11,21 +15,30 @@ export const Login = () => {
         password: ''
     });
 
+    /**
+     * Toggles the visibility of the password field.
+     */
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
         passwordRef.current.type = showPassword ? 'password' : 'text';
-
     }
 
+    /**
+     * Handles the input change event.
+     * @param {Object} e - The event object.
+     */
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormValues({
             ...formValues,
             [name]: value
         });
-
     }
 
+    /**
+     * Handles the form submission event.
+     * @param {Object} e - The event object.
+     */
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formValues);

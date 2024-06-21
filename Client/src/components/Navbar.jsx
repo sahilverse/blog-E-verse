@@ -3,13 +3,23 @@ import { Link } from 'react-router-dom';
 import { useTheme } from './contexts/ThemeProvider';
 
 
+/**
+ * Represents the navigation bar component.
+ *
+ * @component
+ * @returns {JSX.Element} The JSX element representing the navigation bar.
+ */
 export default function Navbar() {
 
+    // State for tracking scroll position
     const [isScroll, setIsScroll] = useState(false);
+    // State for tracking dark mode
     const [isDarkMode, setIsDarkMode] = useState(false);
 
+    // Access theme controller from context
     const { themeControllerChecked } = useTheme();
 
+    // Function to handle navbar change on scroll
     const changeNavbar = () => {
         if (window.scrollY >= 80) {
             setIsScroll(true);
@@ -19,14 +29,17 @@ export default function Navbar() {
     };
 
     useEffect(() => {
+        // Add event listener for scroll
         window.addEventListener('scroll', changeNavbar);
 
+        // Update dark mode state based on theme controller
         if (themeControllerChecked) {
             setIsDarkMode(true);
         } else {
             setIsDarkMode(false);
         }
 
+        // Clean up event listener on component unmount
         return () => {
             window.removeEventListener('scroll', changeNavbar);
         };
