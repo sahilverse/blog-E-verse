@@ -1,8 +1,8 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function Create() {
-    const navigate = useNavigate()
+
     return (
         <section id='create' className='mt-14 mb-10 lg:px-0 px-4 '>
             <div className="container mx-auto rounded-lg sm:p-14 py-10 p-10 flex justify-center lg:gap-20 xl:gap-72 bg-timberwolf lg:flex-row flex-col-reverse items-center gap-16  ">
@@ -14,7 +14,7 @@ export default function Create() {
 
                     <div className="div flex justify-center item mt-4">
 
-                        <button className='btn btn-primary flex-shrink-0 w-40 h-4 rounded-full tracking-wider bg-sage border-none text-brunsickGreen uppercase hover:bg-sage' onClick={() => navigate("/login")}>get started</button>
+                        <Link to="/login" className='btn btn-primary flex-shrink-0 w-40 h-4 rounded-full tracking-wider bg-sage border-none text-brunsickGreen uppercase hover:bg-sage'>get started</Link>
                     </div>
                 </div>
                 <div className='lg:w-1/3 flex-shrink-0 xl:mt-14 lg:mt-6 w-2/3'>

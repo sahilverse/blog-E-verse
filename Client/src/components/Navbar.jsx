@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ThemeController from './subcomponents/ThemeController';
 import { Link } from 'react-router-dom';
 import { useTheme } from './contexts/ThemeProvider';
-
-
+import { Navlinks } from './subcomponents/navbar/Navlinks';
 
 export default function Navbar() {
 
@@ -11,8 +10,6 @@ export default function Navbar() {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     const { themeControllerChecked } = useTheme();
-
-
 
     const changeNavbar = () => {
         if (window.scrollY >= 80) {
@@ -39,21 +36,24 @@ export default function Navbar() {
     return (
         <>
             <div className={`${isScroll ? 'scrolled' : ''} ${isDarkMode ? "bg-base-100" : "bg-background"}`}>
-                <div className="navbar lg:container mx-auto flex justify-between pt-6">
+                <div className="navbar lg:container mx-auto flex justify-between pt-6 ">
                     <div>
                         <Link className="btn btn-ghost text-xl" to="/">blogEverse</Link>
                     </div>
 
-                    {/* NavLinks starts */}
-                    <div className="hidden lg:flex gap-4">
-                        <Link className="btn btn-ghost" to="/"><span className='font-bold'>Home</span></Link>
-                        <Link className="btn btn-ghost" to="/discover"><span className='font-bold'>Discover</span></Link>
-                        <Link className="btn btn-ghost" to="/create"><span className='font-bold'>Create</span></Link>
-                        <Link className="btn btn-ghost" to="/dashboard"><span className='font-bold'>Dashboard</span></Link>
-                    </div>
-                    {/* NavLinks ends */}
+                    <div className="navlinks hidden">
+                        <Navlinks />
 
-                    <div className="gap-2">
+                    </div>
+
+
+                    <div>
+                        <Link to='/login' class="customBtn-primary">Login</Link>
+                    </div>
+
+
+
+                    <div className="gap-2 hidden">
 
                         <div className="flex gap-2">
                             {/* Theme Controller starts */}
@@ -69,7 +69,7 @@ export default function Navbar() {
 
 
                         {/* Profie photo and dropdown */}
-                        <div className="dropdown dropdown-end">
+                        <div className="dropdown dropdown-end hidden">
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
                                     <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />

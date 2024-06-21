@@ -1,8 +1,8 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function Discover() {
-    const navigate = useNavigate()
+
     return (
 
         <section className='lg:mt-14 mt-5' id='discover'>
@@ -18,7 +18,7 @@ export default function Discover() {
 
                     <div className="div flex justify-center item mt-4">
 
-                        <button className='btn btn-primary flex-shrink-0 w-40 h-4 rounded-full tracking-wider bg-timberwolf border-none text-brunsickGreen uppercase hover:bg-timberwolf' onClick={() => navigate("/discover")}>Discover</button>
+                        <Link className='btn btn-primary flex-shrink-0 w-40 h-4 rounded-full tracking-wider bg-timberwolf border-none text-brunsickGreen uppercase hover:bg-timberwolf' to='/discover'>Discover</Link>
 
                     </div>
                 </div>
