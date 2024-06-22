@@ -89,7 +89,7 @@ const FaqsComponent = () => {
     };
 
     return (
-        <section className="leading-relaxed max-w-screen-xl mt-40 mx-auto px-4 md:px-8" id="faqs">
+        <section className="leading-relaxed max-w-screen-xl lg:mt-40 mx-auto px-4 md:px-8 mt-16" id="faqs">
             <div className="space-y-3 text-center">
                 <h1 className="text-xl sm:text-3xl md:mr-0 md:text-4xl font-bold text-orange md:text-center whitespace-nowrap font-poppins mb-4">
                     Frequently Asked Questions

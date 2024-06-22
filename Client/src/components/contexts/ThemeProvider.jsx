@@ -23,6 +23,11 @@ export const ThemeProvider = ({ children }) => {
         root.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
         localStorage.setItem('themeControllerChecked', themeControllerChecked);
+        if (theme === 'dark') {
+            root.style.color = '#fff'
+        } else {
+            root.style.color = 'initial'
+        }
     }, [theme, themeControllerChecked]);
 
     /**

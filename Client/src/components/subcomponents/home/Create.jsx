@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useTheme } from '../../contexts/ThemeProvider'
+
 
 /**
  * Renders the Create section.
@@ -7,14 +9,27 @@ import { Link } from 'react-router-dom'
  * @returns {JSX.Element} The Create section component.
  */
 export default function Create() {
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    // Access theme controller from context
+    const { themeControllerChecked } = useTheme();
+
+    useEffect(() => {
+        // Update dark mode state based on theme controller
+        if (themeControllerChecked) {
+            setIsDarkMode(true);
+        } else {
+            setIsDarkMode(false);
+        }
+    }, [themeControllerChecked]);
 
     return (
         <section id='create' className='mt-14 mb-10 lg:px-0 px-4 '>
             <div className="container mx-auto rounded-lg sm:p-14 py-10 p-10 flex justify-center lg:gap-20 xl:gap-72 bg-timberwolf lg:flex-row flex-col-reverse items-center gap-16  ">
                 <div className='flex flex-col gap-6 justify-center xl:ml-20 lg:ml-0'>
                     <div className='flex gap-10 flex-col'>
-                        <h1 className="font-bold text-orange  whitespace-nowrap font-poppins lg:text-center xl:text-start text-xl sm:text-3xl md:text-4xl">Create</h1>
-                        <p className="text-justify desc text-sm sm:text-base leading-relaxed font-roboto">Unleash your inner writer, share your voice, and shape conversations as you create, publish, and promote your blog posts on Blog-E-verse. With our easy-to-use platform, you can bring your ideas to life, connect with readers, and build a community around your passion, expertise, and interests. Join us today and let your creativity flow!</p>
+                        <h1 className={`font-bold   whitespace-nowrap font-poppins lg:text-center xl:text-start text-xl sm:text-3xl md:text-4xl ${isDarkMode ? "text-[#1d232a]" : "text-orange"}`}>Create</h1>
+                        <p className={`text-justify desc text-sm sm:text-base leading-relaxed font-roboto ${isDarkMode ? "text-[#1d232a]" : ""}`}>Unleash your inner writer, share your voice, and shape conversations as you create, publish, and promote your blog posts on Blog-E-verse. With our easy-to-use platform, you can bring your ideas to life, connect with readers, and build a community around your passion, expertise, and interests. Join us today and let your creativity flow!</p>
                     </div>
 
                     <div className="div flex justify-center item mt-4">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useTheme } from './contexts/ThemeProvider';
+import ThemeController from './subcomponents/ThemeController';
 
 
 /**
@@ -54,10 +55,15 @@ export default function Navbar() {
                         <Link className="btn btn-ghost text-xl" to="/">blogEverse</Link>
                     </div>
 
+
+
                     {/* Login Button */}
 
-                    <div>
-                        <Link to='/login' className="customBtn-primary">Login</Link>
+                    <div className='flex items-center gap-5'>
+                        <div className='mt-1' >
+                            <ThemeController />
+                        </div>
+                        <Link to='/login' className={`customBtn-primary ${isDarkMode ? "dark" : ""}`}>Login</Link>
                     </div>
                     {/* Login Button ends */}
 
