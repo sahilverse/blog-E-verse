@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { PiEyeSlashThin } from "react-icons/pi";
 import { PiEyeThin } from "react-icons/pi";
+import { useForm } from 'react-hook-form';
 
 /**
  * Renders a login component.
@@ -10,10 +11,8 @@ import { PiEyeThin } from "react-icons/pi";
 export const Login = () => {
     const passwordRef = useRef(null);
     const [showPassword, setShowPassword] = useState(false);
-    const [formValues, setFormValues] = useState({
-        email: '',
-        password: ''
-    });
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
 
     /**
      * Toggles the visibility of the password field.
@@ -23,26 +22,11 @@ export const Login = () => {
         passwordRef.current.type = showPassword ? 'password' : 'text';
     }
 
-    /**
-     * Handles the input change event.
-     * @param {Object} e - The event object.
-     */
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormValues({
-            ...formValues,
-            [name]: value
-        });
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const onSubmit = () => {
+        console.log('submitted');
     }
 
-    /**
-     * Handles the form submission event.
-     * @param {Object} e - The event object.
-     */
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formValues);
-    }
 
     return (
         <>
@@ -53,17 +37,24 @@ export const Login = () => {
                             <h1 className="font-bold whitespace-nowrap font-poppins lg:text-center xl:text-start text-xl sm:text-3xl md:text-4xl">Login</h1>
                         </div>
 
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="flex flex-col gap-4">
-                                <input type="text" placeholder="Email" className='input input-bordered' value={formValues.email} onChange={handleInputChange} name='email' />
+                                <input type="text" placeholder="Email" className='input input-bordered' {...register("email", {
+                                    required: "This field is required", pattern: {
+                                        value: emailRegex,
+                                        message: 'Please enter a valid email'
+                                    }
+                                })} autoComplete='email' />
+                                {errors.email && <p className='text-[#C91313] text-sm'>{errors.email.message}</p>}
                                 <div className="input input-bordered flex items-center justify-between">
-                                    <input type="password" placeholder="Password" className='w-full' ref={passwordRef} value={formValues.password} onChange={handleInputChange} name='password' />
+                                    <input type="password" placeholder="Password" className='w-full' {...register('password', {
+                                        required: "This field is required"
+                                    })} autoComplete='current-password' />
                                     <button type='button' onClick={handleShowPassword} className='focus:outline-none'>
                                         {showPassword ? <PiEyeSlashThin className='text-gray-500' /> : <PiEyeThin className='text-gray-500' />}
                                     </button>
-
                                 </div>
-
+                                {errors.password && <p className='text-[#C91313] text-sm'>{errors.password.message}</p>}
                             </div>
                             <div className="item mt-4">
 
