@@ -1,6 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+/**
+ * Renders the NotFound component.
+ * 
+ * @returns {JSX.Element} The rendered NotFound component.
+ */
 export const NotFound = () => {
 
     return (

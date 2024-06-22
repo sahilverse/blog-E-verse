@@ -48,28 +48,30 @@ export default function Navbar() {
 
     return (
         <>
+            {/* Navigation bar */}
             <div className={`${isScroll ? 'scrolled' : ''} ${isDarkMode ? "bg-base-100" : "bg-background"}`}>
                 <div className="navbar lg:container mx-auto flex justify-between pt-6 ">
 
                     <div>
+                        {/* Logo */}
                         <Link className="btn btn-ghost text-xl" to="/">blogEverse</Link>
                     </div>
-
-
 
                     {/* Login Button */}
 
                     <div className='flex items-center gap-5'>
                         <div className='mt-1' >
+                            {/* Theme Controller */}
                             <ThemeController />
                         </div>
+                        {/* Login Link */}
                         <Link to='/login' className={`customBtn-primary ${isDarkMode ? "dark" : ""}`}>Login</Link>
                     </div>
                     {/* Login Button ends */}
 
                 </div>
             </div>
-
+            {/* Navigation bar ends */}
         </>
     )
 }

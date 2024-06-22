@@ -8,6 +8,11 @@ import FaqsComponent from './FaqsComponent'
 
 
 
+/**
+ * Renders the Home component.
+ * 
+ * @returns {JSX.Element} The rendered Home component.
+ */
 export default function Home() {
 
     return (

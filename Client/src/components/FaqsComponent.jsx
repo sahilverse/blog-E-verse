@@ -60,6 +60,7 @@ const FaqsComponent = () => {
                 key={idx}
                 onClick={handleOpenAnswer}
             >
+                {/* Question */}
                 <h4 className="cursor-pointer pb-5 flex items-center justify-between text-lg text-gray-700 font-medium font-poppins">
                     {faqsList.q}
                     {
@@ -74,6 +75,7 @@ const FaqsComponent = () => {
                         )
                     }
                 </h4>
+                {/* Answer */}
                 <div
                     ref={answerElRef} className="duration-300"
                     style={state ? { height: answerH } : { height: '0px' }}
@@ -91,15 +93,18 @@ const FaqsComponent = () => {
     return (
         <section className="leading-relaxed max-w-screen-xl lg:mt-40 mx-auto px-4 md:px-8 mt-16" id="faqs">
             <div className="space-y-3 text-center">
+                {/* FAQ Title */}
                 <h1 className="text-xl sm:text-3xl md:mr-0 md:text-4xl font-bold text-orange md:text-center whitespace-nowrap font-poppins mb-4">
                     Frequently Asked Questions
                 </h1>
+                {/* FAQ Description */}
                 <p className="text-gray-600 max-w-lg mx-auto   desc text-sm sm:text-base leading-relaxed font-roboto">
                     Answered all frequently asked questions, Still confused? feel free to contact us.
                 </p>
             </div>
             <div className="mt-20 max-w-2xl mx-auto mb-20">
                 {
+                    // Render each FAQ card
                     faqsList.map((item, idx) => (
                         <FaqsCard
                             key={idx}
