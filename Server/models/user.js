@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    profileImageUrl: {
+        type: String,
+        default: `https:://localhost:${process.env.PORT}/uploads/user.png`
+    }
 
 }, {
     timestamps: true

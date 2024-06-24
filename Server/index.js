@@ -7,11 +7,21 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const cors = require('cors');
 const connectDB = require('./config/connection');
+const authRoutes = require('./routes/authRoutes');
 
 // global middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors(
+    {
+        origin: process.env.CLIENT_URL,
+        credentials: true
+    }
+));
+
+
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static('uploads'));
 
 /**
  * Connect to the database.
@@ -27,6 +37,10 @@ connectDB(process.env.MONGO_URI)
     .catch((err) => {
         console.error(err);
     });
+
+
+// routes
+app.use('/', authRoutes);
 
 /**
  * Start the server.
