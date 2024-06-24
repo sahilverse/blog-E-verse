@@ -1,15 +1,38 @@
+/**
+ * Module dependencies.
+ */
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
+const cors = require('cors');
+const connectDB = require('./config/connection');
 
+// global middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
+/**
+ * Connect to the database.
+ *
+ * @param {string} process.env.MONGO_URI - The MongoDB connection URI.
+ * @returns {Promise} A promise that resolves when the database connection is successful.
+ * @throws {Error} If the database connection fails.
+ */
+connectDB(process.env.MONGO_URI)
+    .then(() => {
+        console.log('Connected to database');
+    })
+    .catch((err) => {
+        console.error(err);
+    });
 
-
-
-
+/**
+ * Start the server.
+ *
+ * @param {number} PORT - The port number on which the server will listen.
+ */
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
