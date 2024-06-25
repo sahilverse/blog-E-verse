@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { PiEyeSlashThin } from "react-icons/pi";
 import { PiEyeThin } from "react-icons/pi";
 import { useForm } from 'react-hook-form';
+import axiosApi from '../helpers/axiosConfig';
 
 /**
  * Renders a login component.
@@ -10,7 +11,7 @@ import { useForm } from 'react-hook-form';
  */
 
 export const Login = () => {
-    const passwordRef = useRef(null);
+
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -20,16 +21,21 @@ export const Login = () => {
      */
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
-        passwordRef.current.type = showPassword ? 'password' : 'text';
     }
 
     // Regular expression for email validation
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     // Function to handle form submission
-    const onSubmit = () => {
-        console.log('submitted');
-    }
+    const onSubmit = async (data) => {
+        try {
+            const response = await axiosApi.post('/login', data);
+
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
 
     return (
@@ -54,10 +60,12 @@ export const Login = () => {
                                 })} autoComplete='email' />
                                 {errors.email && <p className='text-[#C91313] text-sm'>{errors.email.message}</p>}
                                 <div className="input input-bordered flex items-center justify-between">
+
                                     {/* Password input */}
-                                    <input type="password" placeholder="Password" className='w-full' {...register('password', {
-                                        required: "This field is required"
-                                    })} autoComplete='current-password' ref={passwordRef} />
+                                    <input type={showPassword ? 'text' : 'password'} placeholder="Password" className='w-full' {...register('password', {
+                                        required: 'This field is required'
+                                    })} autoComplete='current-password' />
+
                                     {/* Toggle password visibility */}
                                     <button type='button' onClick={handleShowPassword} className='focus:outline-none'>
                                         {showPassword ? <PiEyeSlashThin className='text-gray-500' /> : <PiEyeThin className='text-gray-500' />}
