@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useTheme } from '../../contexts/ThemeProvider'
+import { useTheme } from '../../../contexts/ThemeProvider';
 
 /**
  * Renders the Dashboard component.
