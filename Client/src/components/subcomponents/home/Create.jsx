@@ -8,6 +8,7 @@ import { useTheme } from '../../../contexts/ThemeProvider'
  * 
  * @returns {JSX.Element} The Create section component.
  */
+
 export default function Create() {
     const [isDarkMode, setIsDarkMode] = useState(false);
 

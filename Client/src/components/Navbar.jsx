@@ -10,6 +10,7 @@ import ThemeController from './subcomponents/ThemeController';
  * @component
  * @returns {JSX.Element} The JSX element representing the navigation bar.
  */
+
 export default function Navbar() {
 
     // State for tracking scroll position
