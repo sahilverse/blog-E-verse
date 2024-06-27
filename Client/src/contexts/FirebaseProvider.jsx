@@ -7,7 +7,7 @@ const FirebaseContext = createContext(null);
 
 // Firebase configuration object
 const firebaseConfig = {
-    apiKey: "AIzaSyAKyc7Ly9d1EWguzlRvxt7BbHuVk6-uN9I",
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain: "blog-e-verse.firebaseapp.com",
     projectId: "blog-e-verse",
     storageBucket: "blog-e-verse.appspot.com",
