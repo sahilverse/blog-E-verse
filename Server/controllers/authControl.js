@@ -14,10 +14,14 @@ const handleSignUp = async (req, res) => {
     const { name, email, password } = req.body;
     const hashedPassword = await hashPassword(password);
     try {
-        const user = new User({ name, email, password: hashedPassword });
-        await user.save();
-        const { profileImageUrl } = user;
+        const user = await User.findOne({ email });
+        if (user) return res.status(400).json({ message: 'User already exists' });
+
+        const newUser = new User({ name, email, password: hashedPassword });
+        await newUser.save();
+        const { profileImageUrl } = newUser;
         res.status(201).json({ message: 'User created successfully', user: { name, email, profileImageUrl } });
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -40,11 +44,12 @@ const handleLogin = async (req, res) => {
 
 
         const isPasswordCorrect = await user.verifyPassword(password, user.password);
-        if (!isPasswordCorrect) return res.status(400).json({ message: 'Incorrect password' });
+        if (!isPasswordCorrect) return res.json({ message: 'Incorrect password' });
 
         const sessionId = setUser(user);
         res.cookie('sessionId', sessionId, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
         res.status(200).json({ message: 'Login successful', user: { email, profileImageUrl, name } });
+
 
     } catch (error) {
         res.status(500).json({ error: error.message });
