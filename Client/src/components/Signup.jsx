@@ -5,6 +5,9 @@ import { PiEyeThin } from "react-icons/pi";
 import { useForm } from 'react-hook-form';
 import axiosApi from '../helpers/axiosConfig';
 import { useFirebase } from '../contexts/FirebaseProvider';
+import { toast } from 'react-toastify'
+import { useTheme } from '../contexts/ThemeProvider';
+
 
 
 /**
@@ -17,7 +20,26 @@ export const Signup = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [toastDisplayed, setToastDisplayed] = useState(false);
+    const { themeControllerChecked } = useTheme();
 
+    const displayToastError = (message) => {
+        toast.error(message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: themeControllerChecked ? 'dark' : 'light',
+        });
+        setToastDisplayed(true);
+
+        setTimeout(() => {
+            setToastDisplayed(false);
+        }, 3000);
+    }
 
     /**
      * Toggles the visibility of the password field.
@@ -31,33 +53,28 @@ export const Signup = () => {
 
     // Function to handle form submission
     const onSubmit = async (data) => {
-        console.log(data);
         try {
             const response = await axiosApi.post('/signup', data);
 
 
             if (response.status == 201) {
-                console.log('Signup successful:', response.data);
                 navigate('/login');
             }
 
-
-
         } catch (error) {
-            if (error.response) {
+            if (error.response && !toastDisplayed) {
                 if (error.response.status === 400) {
-                    alert("User already exists");
+                    displayToastError("User already exists");
                 } else if (error.response.status === 500) {
-                    alert("Internal server error");
+                    displayToastError("Internal server error. Please try again later");
+
                 } else {
-                    alert(`Error: ${error.response.status}. Please try again later.`);
+                    displayToastError("An error occurred. Please try again later");
                 }
             }
 
         }
     };
-
-
 
     return (
         <>
@@ -115,10 +132,6 @@ export const Signup = () => {
 
                                 {/* Sign up button */}
                                 <Link to="/login" className='btn btn-primary flex-shrink-0  h-4 rounded-md w-full tracking-wider bg-[#d9d7cd] border-none text-brunsickGreen uppercase hover:bg-[#d9d7cd]/80 mb-2'>Login</Link>
-
-
-
-
 
                             </div>
 

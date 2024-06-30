@@ -20,7 +20,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 // Firebase authentication provider
-const auth = getAuth(firebaseApp);
+const firebaseAuth = getAuth(firebaseApp);
 const provider = new GoogleAuthProvider();
 
 // FirebaseProvider component to provide the Firebase app instance to its children
@@ -28,23 +28,14 @@ export const FirebaseProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     const signInWithGoogle = () => {
-        signInWithPopup(auth, provider)
+        signInWithPopup(firebaseAuth, provider)
             .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                // The signed-in user info.
+
                 const user = result.user;
                 setUser(user);
 
             }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.email;
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
+
                 console.log(error);
             });
     }

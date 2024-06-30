@@ -5,6 +5,9 @@ import { PiEyeThin } from "react-icons/pi";
 import { useForm } from 'react-hook-form';
 import axiosApi from '../helpers/axiosConfig';
 import { useFirebase } from '../contexts/FirebaseProvider';
+import { toast } from 'react-toastify'
+import { useTheme } from '../contexts/ThemeProvider';
+
 
 /**
  * Renders a login component.
@@ -16,7 +19,27 @@ export const Login = () => {
     const { signInWithGoogle, user } = useFirebase();
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors }, setError } = useForm();
+    const [toastDisplayed, setToastDisplayed] = useState(false);
+    const { themeControllerChecked } = useTheme();
 
+
+    const displayToastError = (message) => {
+        toast.error(message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: themeControllerChecked ? 'dark' : 'light',
+        });
+        setToastDisplayed(true);
+
+        setTimeout(() => {
+            setToastDisplayed(false);
+        }, 3000);
+    }
 
     /**
      * Toggles the visibility of the password field.
@@ -41,22 +64,20 @@ export const Login = () => {
                 return;
             }
 
-            // Handle other successful response cases if needed
-            console.log('Login successful:', response.data);
-
         } catch (error) {
-            if (error.response) {
+            if (error.response && !toastDisplayed) {
                 if (error.response.status === 404) {
-                    alert("User not found");
+                    displayToastError('User not found');
+
                 } else if (error.response.status === 500) {
-                    alert("Internal server error");
+                    displayToastError('Internal server error');
                 } else {
-                    alert(`Error: ${error.response.status}. Please try again later.`);
+                    displayToastError('An error occurred. Please try again later.');
                 }
             } else if (error.request) {
-                alert('Network error. Please try again later.');
+                displayToastError('An error occurred. Please try again later.');
             } else {
-                alert('An error occurred. Please try again later.');
+                displayToastError('An error occurred. Please try again later.');
             }
         }
     };
@@ -116,10 +137,6 @@ export const Login = () => {
 
                                 {/* Sign up button */}
                                 <Link to="/signup" className='btn btn-primary flex-shrink-0  h-4 rounded-md w-full tracking-wider bg-[#d9d7cd] border-none text-brunsickGreen uppercase hover:bg-[#d9d7cd]/80 mb-2'>Sign Up</Link>
-
-
-
-
 
                             </div>
 
