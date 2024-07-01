@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import axiosApi from '../helpers/axiosConfig';
 
 // Create the AuthContext
 const AuthContext = createContext();
@@ -20,6 +21,23 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const res = await axiosApi.get('/auth-check');
+                if (res.status === 200) {
+                    setUser(res.data.user);
+                }
+            } catch (error) {
+                setUser(null);
+            }
+        };
+
+        checkAuth();
+
+    }, []);
+
 
     return (
         <AuthContext.Provider value={{ user, setUser }}>

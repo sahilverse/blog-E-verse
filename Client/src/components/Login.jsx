@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PiEyeSlashThin } from "react-icons/pi";
 import { PiEyeThin } from "react-icons/pi";
@@ -24,7 +24,7 @@ export const Login = () => {
     const [toastDisplayed, setToastDisplayed] = useState(false);
     const { themeControllerChecked } = useTheme();
     const { setUser, user } = useAuth();
-    const { submitted, setSubmitted } = useState(false);
+
 
     const displayToastError = (message) => {
         toast.error(message, {

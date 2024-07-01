@@ -87,6 +87,21 @@ const handleGoogleLogin = async (req, res) => {
 
 }
 
+/**
+ * Handles the authentication check functionality.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves when the authentication check process is complete.
+ * @throws {Error} - If an error occurs during the authentication check process.
+ */
+
+const handleAuthCheck = async (req, res) => {
+    if (!req.user) return res.json({ message: 'Unauthorized' });
+    const { name, email, profileImageUrl } = req.user;
+    res.status(200).json({ message: 'Authenticated', user: { name, email, profileImageUrl } });
+}
 
 
-module.exports = { handleSignUp, handleLogin, handleGoogleLogin };
+
+module.exports = { handleSignUp, handleLogin, handleGoogleLogin, handleAuthCheck };

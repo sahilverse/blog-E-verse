@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeProvider';
 import ThemeController from './subcomponents/ThemeController';
+import { useAuth } from '../contexts/AuthProvider';
 
 
 /**
@@ -20,6 +21,8 @@ export default function Navbar() {
 
     // Access theme controller from context
     const { themeControllerChecked } = useTheme();
+
+    const { user } = useAuth();
 
     // Function to handle navbar change on scroll
     const changeNavbar = () => {
@@ -66,7 +69,9 @@ export default function Navbar() {
                             <ThemeController />
                         </div>
                         {/* Login Link */}
-                        <Link to='/login' className={`customBtn-primary ${isDarkMode ? "dark" : ""}`}>Login</Link>
+                        {!user &&
+                            <Link to='/login' className={`customBtn-primary ${isDarkMode ? "dark" : ""}`}>Login</Link>
+                        }
                     </div>
                     {/* Login Button ends */}
 
