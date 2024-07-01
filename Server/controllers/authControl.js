@@ -47,13 +47,46 @@ const handleLogin = async (req, res) => {
         if (!isPasswordCorrect) return res.json({ message: 'Incorrect password' });
 
         const sessionId = setUser(user);
-        res.cookie('sessionId', sessionId, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie('sess_', sessionId, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
         res.status(200).json({ message: 'Login successful', user: { email, profileImageUrl, name } });
 
 
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+};
+
+/**
+ * Handles the Google login functionality.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>} - A promise that resolves when the Google login process is complete.
+ * @throws {Error} - If an error occurs during the Google login process.
+ */
+
+const handleGoogleLogin = async (req, res) => {
+    const { email, name, profileImageUrl, googleId } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            const newUser = new User({ email, name, profileImageUrl: profileImageUrl || `https:://localhost:${process.env.PORT}/uploads/user.png`, googleId });
+            await newUser.save();
+            const sessionId = setUser(newUser);
+            res.cookie('sess_', sessionId, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+            res.status(201).json({ message: 'User created successfully', user: { email, name, profileImageUrl } });
+            return;
+        }
+        const sessionId = setUser(user);
+        res.cookie('sess_', sessionId, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.status(200).json({ message: 'Login successful', user: { email, name, profileImageUrl } });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+
 }
 
-module.exports = { handleSignUp, handleLogin };
+
+
+module.exports = { handleSignUp, handleLogin, handleGoogleLogin };

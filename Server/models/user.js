@@ -25,12 +25,15 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
         trim: true
     },
     profileImageUrl: {
         type: String,
         default: `https:://localhost:${process.env.PORT}/uploads/user.png`
+    },
+    googleId: {
+        type: String,
+        unique: true
     }
 
 }, {

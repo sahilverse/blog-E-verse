@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { PiEyeSlashThin } from "react-icons/pi";
 import { PiEyeThin } from "react-icons/pi";
@@ -7,6 +7,8 @@ import axiosApi from '../helpers/axiosConfig';
 import { useFirebase } from '../contexts/FirebaseProvider';
 import { toast } from 'react-toastify'
 import { useTheme } from '../contexts/ThemeProvider';
+import { useAuth } from '../contexts/AuthProvider'
+
 
 
 /**
@@ -16,12 +18,13 @@ import { useTheme } from '../contexts/ThemeProvider';
 
 export const Login = () => {
 
-    const { signInWithGoogle, user } = useFirebase();
+    const { signInWithGoogle } = useFirebase();
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors }, setError } = useForm();
     const [toastDisplayed, setToastDisplayed] = useState(false);
     const { themeControllerChecked } = useTheme();
-
+    const { setUser, user } = useAuth();
+    const { submitted, setSubmitted } = useState(false);
 
     const displayToastError = (message) => {
         toast.error(message, {
@@ -46,6 +49,8 @@ export const Login = () => {
      */
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
+        console.log(user)
+
     }
 
     // Regular expression for email validation
@@ -63,6 +68,15 @@ export const Login = () => {
                 });
                 return;
             }
+
+            if (!response.data.user) {
+                displayToastError('User not found');
+                return;
+            }
+
+            setUser(response.data.user);
+
+
 
         } catch (error) {
             if (error.response && !toastDisplayed) {

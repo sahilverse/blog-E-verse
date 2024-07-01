@@ -1,7 +1,8 @@
 import { createContext, useContext, useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { useAuth } from '../contexts/AuthProvider'
+import axiosApi from '../helpers/axiosConfig';
 // Create a Firebase context
 const FirebaseContext = createContext(null);
 
@@ -25,14 +26,23 @@ const provider = new GoogleAuthProvider();
 
 // FirebaseProvider component to provide the Firebase app instance to its children
 export const FirebaseProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
 
+    const { setUser } = useAuth();
     const signInWithGoogle = () => {
         signInWithPopup(firebaseAuth, provider)
-            .then((result) => {
+            .then(async (result) => {
 
-                const user = result.user;
-                setUser(user);
+                const user = {
+                    name: result.user.displayName,
+                    email: result.user.email,
+                    profileImageUrl: result.user.photoURL,
+                    googleId: result.user.providerData.find(provider => provider.providerId === 'google.com').uid,
+                }
+
+
+                const response = await axiosApi.post('/google-login', user)
+                setUser(response.data.user);
+
 
             }).catch((error) => {
 
@@ -40,8 +50,18 @@ export const FirebaseProvider = ({ children }) => {
             });
     }
 
+    const signOutUser = () => {
+        signOut(firebaseAuth)
+            .then(() => {
+                setUser(null);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     return (
-        <FirebaseContext.Provider value={{ firebaseApp, signInWithGoogle, user }}>
+        <FirebaseContext.Provider value={{ signInWithGoogle, signOutUser }}>
             {children}
         </FirebaseContext.Provider>
     );
