@@ -11,6 +11,15 @@ router.post('/google-login', handleGoogleLogin);
 
 router.get('/auth-check', handleAuthCheck);
 
+router.post('/logout', (req, res) => {
+    try {
+        res.clearCookie('sess_', { path: '/' });
+        res.status(200).json({ message: 'Logged out' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error logging out', error });
+    }
+});
+
 
 
 

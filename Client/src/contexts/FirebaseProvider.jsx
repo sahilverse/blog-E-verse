@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { useAuth } from '../contexts/AuthProvider'
@@ -39,7 +39,6 @@ export const FirebaseProvider = ({ children }) => {
                     googleId: result.user.providerData.find(provider => provider.providerId === 'google.com').uid,
                 }
 
-
                 const response = await axiosApi.post('/google-login', user)
                 setUser(response.data.user);
 
@@ -50,18 +49,22 @@ export const FirebaseProvider = ({ children }) => {
             });
     }
 
-    const signOutUser = () => {
-        signOut(firebaseAuth)
-            .then(() => {
-                setUser(null);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
+    const logout = async () => {
+        try {
+            await axiosApi.post('/logout');
+
+            await signOut(firebaseAuth);
+
+            setUser(null);
+
+        } catch (error) {
+            console.error("Error during logout:", error);
+        }
+    };
+
 
     return (
-        <FirebaseContext.Provider value={{ signInWithGoogle, signOutUser }}>
+        <FirebaseContext.Provider value={{ signInWithGoogle, logout }}>
             {children}
         </FirebaseContext.Provider>
     );
