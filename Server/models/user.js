@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     },
     profileImageUrl: {
         type: String,
-        default: `https:://localhost:${process.env.PORT}/uploads/user.png`
+        default: `http://localhost:${process.env.PORT}/uploads/user.png`
     },
     googleId: {
         type: String,

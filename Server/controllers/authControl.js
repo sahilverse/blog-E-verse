@@ -70,7 +70,7 @@ const handleGoogleLogin = async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            const newUser = new User({ email, name, profileImageUrl: profileImageUrl || `https:://localhost:${process.env.PORT}/uploads/user.png`, googleId });
+            const newUser = new User({ email, name, profileImageUrl: profileImageUrl || `http://localhost:${process.env.PORT}/uploads/user.png`, googleId });
             await newUser.save();
             const sessionId = setUser(newUser);
             res.cookie('sess_', sessionId, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });

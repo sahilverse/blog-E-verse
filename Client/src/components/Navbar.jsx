@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeProvider';
 import ThemeController from './subcomponents/ThemeController';
 import { useAuth } from '../contexts/AuthProvider';
+import { UserProfileNav } from './subcomponents/navbar/UserProfileNav';
 
 
 /**
@@ -69,14 +70,15 @@ export default function Navbar() {
                             <ThemeController />
                         </div>
                         {/* Login Link */}
-                        {!user &&
-                            <Link to='/login' className={`customBtn-primary ${isDarkMode ? "dark" : ""}`}>Login</Link>
+                        {!user ?
+                            (<Link to='/login' className={`customBtn-primary ${isDarkMode ? "dark" : ""}`}>Login</Link>) :
+                            (<UserProfileNav />)
                         }
                     </div>
                     {/* Login Button ends */}
 
                 </div>
-            </div>
+            </div >
             {/* Navigation bar ends */}
         </>
     )
