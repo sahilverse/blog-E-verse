@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { useAuth } from '../contexts/AuthProvider'
 import axiosApi from '../helpers/axiosConfig';
+
 // Create a Firebase context
 const FirebaseContext = createContext(null);
 
@@ -41,6 +42,9 @@ export const FirebaseProvider = ({ children }) => {
 
                 const response = await axiosApi.post('/google-login', user)
                 setUser(response.data.user);
+
+                if (response.data.user) return window.location.href = '/';
+
 
 
             }).catch((error) => {

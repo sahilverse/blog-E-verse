@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { PiEyeSlashThin } from "react-icons/pi";
 import { PiEyeThin } from "react-icons/pi";
@@ -7,6 +7,7 @@ import axiosApi from '../helpers/axiosConfig';
 import { useFirebase } from '../contexts/FirebaseProvider';
 import { toast } from 'react-toastify'
 import { useTheme } from '../contexts/ThemeProvider';
+import { useAuth } from '../contexts/AuthProvider'
 
 
 
@@ -22,6 +23,8 @@ export const Signup = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [toastDisplayed, setToastDisplayed] = useState(false);
     const { themeControllerChecked } = useTheme();
+    const { user } = useAuth();
+
 
     const displayToastError = (message) => {
         toast.error(message, {
@@ -75,6 +78,12 @@ export const Signup = () => {
 
         }
     };
+
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    }, [user]);
 
     return (
         <>

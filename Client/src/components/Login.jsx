@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PiEyeSlashThin } from "react-icons/pi";
 import { PiEyeThin } from "react-icons/pi";
@@ -8,6 +8,7 @@ import { useFirebase } from '../contexts/FirebaseProvider';
 import { toast } from 'react-toastify'
 import { useTheme } from '../contexts/ThemeProvider';
 import { useAuth } from '../contexts/AuthProvider'
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -24,6 +25,7 @@ export const Login = () => {
     const [toastDisplayed, setToastDisplayed] = useState(false);
     const { themeControllerChecked } = useTheme();
     const { setUser, user } = useAuth();
+    const navigate = useNavigate();
 
 
     const displayToastError = (message) => {
@@ -76,6 +78,8 @@ export const Login = () => {
 
             setUser(response.data.user);
 
+            if (response.data.user) return navigate("/");
+
 
 
         } catch (error) {
@@ -95,6 +99,12 @@ export const Login = () => {
             }
         }
     };
+
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    }, [user])
 
 
 
