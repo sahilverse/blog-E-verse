@@ -8,8 +8,12 @@ import { Login } from './components/Login'
 import { Signup } from './components/Signup'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from './contexts/AuthProvider'
+import { HomeProtected } from './components/protected-home/HomeProtected'
 
 function App() {
+
+  const { user } = useAuth();
 
   return (
     <>
@@ -17,7 +21,12 @@ function App() {
         <Navbar />
         <ToastContainer />
         <Routes>
-          <Route path="/" element={<Home />} />
+          {
+            user ?
+              <Route path="/" element={<HomeProtected />} /> :
+
+              <Route path="/" element={<Home />} />
+          }
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<NotFound />} />

@@ -5,8 +5,7 @@ import Create from './subcomponents/home/Create'
 import Engage from './subcomponents/home/Engage'
 import Dashboard from './subcomponents/home/Dashboard'
 import FaqsComponent from './FaqsComponent'
-import { useAuth } from '../contexts/AuthProvider'
-import { HomeProtected } from './protected-home/HomeProtected'
+
 
 
 
@@ -17,9 +16,12 @@ import { HomeProtected } from './protected-home/HomeProtected'
  * @returns {JSX.Element} The rendered Home component.
  */
 export default function Home() {
-    const { user } = useAuth();
-    const homePage = () => {
-        return (
+
+
+    return (
+
+
+        <>
             <>
                 {/* Hero Section */}
                 < Hero />
@@ -44,23 +46,6 @@ export default function Home() {
                 {/* faq section */}
                 <FaqsComponent />
             </>
-
-        )
-    }
-
-    return (
-
-
-        <>
-            {
-                user ?
-                    (
-                        <HomeProtected />
-                    )
-                    : homePage()
-            }
-
-
 
 
         </>
