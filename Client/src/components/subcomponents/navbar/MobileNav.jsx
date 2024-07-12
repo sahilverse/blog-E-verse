@@ -7,7 +7,7 @@ export const MobileNav = () => {
     const [isHamburger, setIsHamburger] = useState(false)
 
     const handleHamburger = () => {
-        setIsHamburger(!isHamburger)
+        setIsHamburger(prev => !prev);
     }
 
 
