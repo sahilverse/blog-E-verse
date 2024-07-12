@@ -80,15 +80,16 @@ export default function Navbar() {
 
                     {/* Login Button */}
 
-                    <div className='flex items-center gap-5'>
+                    <div className='flex items-center gap-3'>
                         <div className='mt-2' >
                             {/* Theme Controller */}
                             <ThemeController />
                         </div>
                         {/* Login Link */}
-                        {user && <div>
-                            <Link to='/notifications' className={`text-xl ${isDarkMode ? "text-[#afb0b1]" : "text-[#50555c]"} `}>
+                        {user && <div className={`rounded-full ${isDarkMode ? "hover:bg-hover-bg" : "hover:bg-[#c9c9cf]"} p-2 cursor-pointer`}>
+                            <Link to='/notifications' className={`text-xl ${isDarkMode ? "text-[#afb0b1]" : "text-[#50555c]"} relative `}>
                                 <RiNotification2Line className='text-[1.7rem]' />
+                                <span className={`absolute top-[-10px] left-[-10px] bg-[#E61133] rounded-full w-6 h-6 flex items-center justify-center text-xs text-[#fff]`}>10</span>
                             </Link>
 
                         </div>
