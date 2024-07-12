@@ -19,8 +19,8 @@ const handleSignUp = async (req, res) => {
 
         const newUser = new User({ name, email, password: hashedPassword });
         await newUser.save();
-        const { profileImageUrl } = newUser;
-        res.status(201).json({ message: 'User created successfully', user: { name, email, profileImageUrl } });
+        const { profileImageUrl, username } = newUser;
+        res.status(201).json({ message: 'User created successfully', user: { name, email, profileImageUrl, username } });
 
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -40,7 +40,7 @@ const handleLogin = async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (!user) return res.status(404).json({ message: 'User not found' });
-        const { name, profileImageUrl } = user;
+        const { name, profileImageUrl, username } = user;
 
 
         const isPasswordCorrect = await user.verifyPassword(password, user.password);
@@ -48,7 +48,7 @@ const handleLogin = async (req, res) => {
 
         const sessionId = setUser(user);
         res.cookie('sess_', sessionId, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
-        res.status(200).json({ message: 'Login successful', user: { email, profileImageUrl, name } });
+        res.status(200).json({ message: 'Login successful', user: { email, profileImageUrl, name, username } });
 
 
     } catch (error) {
@@ -68,24 +68,27 @@ const handleLogin = async (req, res) => {
 const handleGoogleLogin = async (req, res) => {
     const { email, name, profileImageUrl, googleId } = req.body;
     try {
-        const user = await User.findOne({ email });
+        let user = await User.findOne({ email });
+
         if (!user) {
-            const newUser = new User({ email, name, profileImageUrl: profileImageUrl || `http://localhost:${process.env.PORT}/uploads/user.png`, googleId });
-            await newUser.save();
-            const sessionId = setUser(newUser);
-            res.cookie('sess_', sessionId, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
-            res.status(201).json({ message: 'User created successfully', user: { email, name, profileImageUrl } });
-            return;
+            user = new User({ email, name, profileImageUrl: profileImageUrl || `http://localhost:${process.env.PORT}/uploads/user.png`, googleId });
+            await user.save();
         }
+
+        // Log the user document to debug
+        console.log('User:', user);
+
+        // Set session and respond
         const sessionId = setUser(user);
+        const { username } = user;
         res.cookie('sess_', sessionId, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
-        res.status(200).json({ message: 'Login successful', user: { email, name, profileImageUrl } });
+        res.status(200).json({ message: 'Login successful', user: { email, profileImageUrl, name, username } });
 
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-
 }
+
 
 /**
  * Handles the authentication check functionality.
@@ -98,8 +101,8 @@ const handleGoogleLogin = async (req, res) => {
 
 const handleAuthCheck = async (req, res) => {
     if (!req.user) return res.json({ message: 'Unauthorized' });
-    const { name, email, profileImageUrl } = req.user;
-    res.status(200).json({ message: 'Authenticated', user: { name, email, profileImageUrl } });
+    const { name, email, profileImageUrl, username } = req.user;
+    res.status(200).json({ message: 'Authenticated', user: { name, email, profileImageUrl, username } });
 }
 
 

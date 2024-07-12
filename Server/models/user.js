@@ -1,13 +1,3 @@
-/**
- * User model representing a user in the application.
- * @typedef {Object} User
- * @property {string} name - The name of the user.
- * @property {string} email - The email of the user.
- * @property {string} password - The password of the user.
- * @property {Date} createdAt - The timestamp when the user was created.
- * @property {Date} updatedAt - The timestamp when the user was last updated.
- */
-
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -27,6 +17,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    username: {
+        type: String,
+        unique: true,
+        trim: true
+    },
     profileImageUrl: {
         type: String,
         default: `http://localhost:${process.env.PORT}/uploads/user.png`
@@ -35,7 +30,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         unique: true
     }
-
 }, {
     timestamps: true
 });
@@ -51,6 +45,38 @@ const userSchema = new mongoose.Schema({
 userSchema.methods.verifyPassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 };
+
+/**
+ * Generates a unique username based on the user's name.
+ * @param {string} name - The name of the user.
+ * @returns {Promise<string>} - A promise that resolves to a unique username.
+ */
+const generateUniqueUsername = async function (name) {
+    let username;
+    let isUnique = false;
+
+    while (!isUnique) {
+        // Generate a username using the user's name and a random number
+        const randomNumber = Math.floor(Math.random() * 10000);
+        username = `${name.replace(/\s+/g, '').toLowerCase()}${randomNumber}`;
+
+        // Check if the generated username is unique
+        const existingUser = await User.findOne({ username });
+        if (!existingUser) {
+            isUnique = true;
+        }
+    }
+
+    return username;
+};
+
+// Pre-save hook to generate a unique username if not provided
+userSchema.pre('save', async function (next) {
+    if (!this.username) {
+        this.username = await generateUniqueUsername(this.name);
+    }
+    next();
+});
 
 const User = mongoose.model('User', userSchema);
 

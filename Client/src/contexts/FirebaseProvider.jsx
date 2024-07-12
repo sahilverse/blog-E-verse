@@ -39,6 +39,7 @@ export const FirebaseProvider = ({ children }) => {
                     email: result.user.email,
                     profileImageUrl: result.user.photoURL,
                     googleId: result.user.providerData.find(provider => provider.providerId === 'google.com').uid,
+
                 }
 
                 const response = await axiosApi.post('/google-login', user)

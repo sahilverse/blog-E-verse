@@ -4,6 +4,7 @@ import { useTheme } from '../contexts/ThemeProvider';
 import ThemeController from './subcomponents/ThemeController';
 import { useAuth } from '../contexts/AuthProvider';
 import { UserProfileNav } from './subcomponents/navbar/UserProfileNav';
+import { IoSearch } from "react-icons/io5";
 
 
 /**
@@ -59,7 +60,22 @@ export default function Navbar() {
 
                     <div>
                         {/* Logo */}
-                        <Link className="btn btn-ghost text-xl" to="/">blogEverse</Link>
+                        <div className='flex items-center gap-4'>
+                            <Link className="btn btn-ghost text-xl" to="/">blogEverse</Link>
+
+                            {
+                                user &&
+                                <div className={`input h-10 w-58 rounded-full  ${isDarkMode ? "bg-[#25292d]" : "border-hunterGreen"} flex items-center gap-4`} >
+                                    <div>
+
+                                        <IoSearch className='text-[#747d87] text-xl' />
+                                    </div>
+                                    <input type="text" placeholder="Search" className={`text-[#afb0b1] ${!(isDarkMode) && "text-[#50555c]  placeholder:text-[#747d87]"}`} />
+                                </div>
+                            }
+
+                        </div>
+
                     </div>
 
                     {/* Login Button */}

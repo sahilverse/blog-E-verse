@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken');
  * @param {string} user._id - The unique identifier of the user.
  * @param {string} user.name - The name of the user.
  * @param {string} user.email - The email address of the user.
+ * @param {string} user.profileImageUrl - The profile image URL of the user.
+ * @param {string} user.username - The username of the user
  * @returns {string} - The generated JWT.
  */
 const setUser = (user) => {
@@ -13,7 +15,8 @@ const setUser = (user) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        profileImageUrl: user.profileImageUrl
+        profileImageUrl: user.profileImageUrl,
+        username: user.username
     }
 
     return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' });

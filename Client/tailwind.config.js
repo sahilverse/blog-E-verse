@@ -10,11 +10,11 @@ export default {
         'roboto': ['Roboto', 'sans-serif'],
         'poppins': ['Poppins', 'sans-serif'],
       },
-      lineHeight:{
+      lineHeight: {
         'relaxed': '1.625',
       }
     },
-    colors:{
+    colors: {
       "timberwolf": "#DAD7CD",
       "sage": "#A3B18A",
       "fernGreen": "#588157",
@@ -22,7 +22,8 @@ export default {
       "brunsickGreen": "#344E41",
       "background": "#fcfcfc",
       "cornsilk": "#FEFAE0",
-   
+      "hover-bg": "#374350",
+
     }
   },
   plugins: [require('daisyui'),],
