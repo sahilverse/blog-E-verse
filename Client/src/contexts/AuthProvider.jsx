@@ -8,7 +8,6 @@ const AuthContext = createContext();
  * Custom hook to use the AuthContext
  * @returns {Object} The context value
  */
-
 export const useAuth = () => {
     return useContext(AuthContext);
 }
@@ -18,9 +17,9 @@ export const useAuth = () => {
  * @param {Object} props The properties of the component
  * @returns {JSX.Element} The AuthProvider component
  */
-
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [isUserLoading, setIsUserLoading] = useState(true);
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -31,6 +30,8 @@ export const AuthProvider = ({ children }) => {
                 }
             } catch (error) {
                 setUser(null);
+            } finally {
+                setIsUserLoading(false);
             }
         };
 
@@ -40,8 +41,8 @@ export const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ user, setUser }}>
+        <AuthContext.Provider value={{ user, setUser, isUserLoading }}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 }

@@ -6,46 +6,39 @@ import Engage from './subcomponents/home/Engage'
 import Dashboard from './subcomponents/home/Dashboard'
 import FaqsComponent from './FaqsComponent'
 
-
-
-
-
 /**
  * Renders the Home component.
  * 
  * @returns {JSX.Element} The rendered Home component.
  */
 export default function Home() {
-
-
     return (
 
-
         <>
-            <>
-                {/* Hero Section */}
-                < Hero />
-                {/* Hero Section */}
 
-                {/* Discover Section */}
-                <Discover />
-                {/* Discover Section */}
+            {/* Hero Section */}
+            < Hero />
+            {/* Hero Section */}
 
-                {/* create section */}
-                <Create />
-                {/* create section */}
+            {/* Discover Section */}
+            <Discover />
+            {/* Discover Section */}
 
-                {/* Engage Section */}
-                <Engage />
-                {/* Engage Section */}
+            {/* create section */}
+            <Create />
+            {/* create section */}
 
-                {/* Dashboard Section */}
-                <Dashboard />
-                {/* Dashboard Section */}
+            {/* Engage Section */}
+            <Engage />
+            {/* Engage Section */}
 
-                {/* faq section */}
-                <FaqsComponent />
-            </>
+            {/* Dashboard Section */}
+            <Dashboard />
+            {/* Dashboard Section */}
+
+            {/* faq section */}
+            <FaqsComponent />
+
 
 
         </>

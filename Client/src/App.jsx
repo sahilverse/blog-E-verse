@@ -13,13 +13,23 @@ import { HomeProtected } from './components/protected-home/HomeProtected'
 
 function App() {
 
-  const { user } = useAuth();
+  const { user, isUserLoading } = useAuth();
+
+  if (isUserLoading) {
+    return (
+      <>
+      </>
+    )
+  }
+
+
 
   return (
     <>
       <Router>
         <Navbar />
         <ToastContainer />
+
         <Routes>
           {
             user ?
