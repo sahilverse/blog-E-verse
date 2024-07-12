@@ -45,9 +45,7 @@ export const FirebaseProvider = ({ children }) => {
                 const response = await axiosApi.post('/google-login', user)
                 setUser(response.data.user);
 
-                if (response.data.user) return window.location.href = '/';
-
-
+                if (response.data.user) return window.location.href = '/'; ``
 
             }).catch((error) => {
 

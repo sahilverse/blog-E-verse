@@ -28,7 +28,10 @@ const userSchema = new mongoose.Schema({
     },
     googleId: {
         type: String,
+        sparse: true,
+        default: undefined,
         unique: true
+
     }
 }, {
     timestamps: true
@@ -54,27 +57,50 @@ userSchema.methods.verifyPassword = async function (password) {
 const generateUniqueUsername = async function (name) {
     let username;
     let isUnique = false;
+    let retryCount = 0;
+    const maxRetries = 5;
 
-    while (!isUnique) {
-        // Generate a username using the user's name and a random number
+    while (!isUnique && retryCount < maxRetries) {
         const randomNumber = Math.floor(Math.random() * 10000);
         username = `${name.replace(/\s+/g, '').toLowerCase()}${randomNumber}`;
 
-        // Check if the generated username is unique
-        const existingUser = await User.findOne({ username });
-        if (!existingUser) {
-            isUnique = true;
+        try {
+            const existingUser = await User.findOne({ username });
+            if (!existingUser) {
+                isUnique = true;
+            }
+        } catch (error) {
+            console.error('Error while checking username uniqueness:', error);
+            throw new Error('Failed to generate unique username');
         }
+
+        retryCount++;
+    }
+
+    if (!isUnique) {
+        throw new Error('Failed to generate unique username after max retries');
     }
 
     return username;
 };
 
+
 // Pre-save hook to generate a unique username if not provided
 userSchema.pre('save', async function (next) {
     if (!this.username) {
-        this.username = await generateUniqueUsername(this.name);
+
+        try {
+
+            this.username = await generateUniqueUsername(this.name);
+
+
+        } catch (error) {
+            console.error('Error while generating unique username:', error);
+            return next(error);
+        }
+
     }
+
     next();
 });
 

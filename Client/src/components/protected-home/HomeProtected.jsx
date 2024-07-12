@@ -14,8 +14,6 @@ export const HomeProtected = () => {
 
 
     useEffect(() => {
-
-
         // Update dark mode state based on theme controller
         if (themeControllerChecked) {
             setIsDarkMode(true);

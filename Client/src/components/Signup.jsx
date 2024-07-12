@@ -23,7 +23,7 @@ export const Signup = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [toastDisplayed, setToastDisplayed] = useState(false);
     const { themeControllerChecked } = useTheme();
-    const { user } = useAuth();
+    const { user, setUser } = useAuth();
 
 
     const displayToastError = (message) => {
@@ -59,9 +59,8 @@ export const Signup = () => {
         try {
             const response = await axiosApi.post('/signup', data);
 
-
-            if (response.status == 201) {
-                navigate('/login');
+            if (response.status == 201 && response.data.user) {
+                setUser(response.data.user);
             }
 
         } catch (error) {

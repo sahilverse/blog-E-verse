@@ -7,7 +7,6 @@ export const UserProfileNav = () => {
     const { user } = useAuth();
     const { logout } = useFirebase();
     return (
-
         <>
             {/* Profie photo and dropdown */}
             <div className="dropdown dropdown-end">

@@ -11,21 +11,29 @@ const { setUser } = require('../services/auth');
  * @throws {Error} - If an error occurs during the sign up process.
  */
 const handleSignUp = async (req, res) => {
+
     const { name, email, password } = req.body;
+    console.log(req.body)
     const hashedPassword = await hashPassword(password);
     try {
         const user = await User.findOne({ email });
         if (user) return res.status(400).json({ message: 'User already exists' });
 
-        const newUser = new User({ name, email, password: hashedPassword });
+        const newUser = new User({ name, email, password: hashedPassword, googleId: undefined });
         await newUser.save();
         const { profileImageUrl, username } = newUser;
+
+        const sessionId = setUser(newUser);
+        res.cookie('sess_', sessionId, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
         res.status(201).json({ message: 'User created successfully', user: { name, email, profileImageUrl, username } });
 
     } catch (error) {
         res.status(500).json({ error: error.message });
+        console.log(error)
     }
 };
+
+
 
 /**
  * Handles the login functionality.
@@ -75,8 +83,6 @@ const handleGoogleLogin = async (req, res) => {
             await user.save();
         }
 
-        // Log the user document to debug
-        console.log('User:', user);
 
         // Set session and respond
         const sessionId = setUser(user);
@@ -86,6 +92,7 @@ const handleGoogleLogin = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ error: error.message });
+        console.log(error.message);
     }
 }
 
