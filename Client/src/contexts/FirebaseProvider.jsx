@@ -39,7 +39,6 @@ export const FirebaseProvider = ({ children }) => {
                     email: result.user.email,
                     profileImageUrl: result.user.photoURL,
                     googleId: result.user.providerData.find(provider => provider.providerId === 'google.com').uid,
-
                 }
 
                 const response = await axiosApi.post('/google-login', user)
@@ -56,17 +55,12 @@ export const FirebaseProvider = ({ children }) => {
     const logout = async () => {
         try {
             await axiosApi.post('/logout');
-
             await signOut(firebaseAuth);
-
             setUser(null);
-
-
         } catch (error) {
             console.error("Error during logout:", error);
         }
     };
-
 
     return (
         <FirebaseContext.Provider value={{ signInWithGoogle, logout }}>

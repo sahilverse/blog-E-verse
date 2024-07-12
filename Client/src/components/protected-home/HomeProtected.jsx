@@ -3,8 +3,6 @@ import { useAuth } from '../../contexts/AuthProvider'
 import HomeLeft from './sub-components/HomeLeft';
 import { useTheme } from '../../contexts/ThemeProvider';
 
-
-
 export const HomeProtected = () => {
     const { user } = useAuth();
 
@@ -29,8 +27,6 @@ export const HomeProtected = () => {
             <div className="container mx-auto flex gap-14">
                 <div className="left ">
                     <HomeLeft user={user} isDarkMode={isDarkMode} />
-
-
                 </div>
 
                 <div className="mid flex-1  py-2">
@@ -42,7 +38,7 @@ export const HomeProtected = () => {
 
                 </div>
 
-                <div className="right py-2 ">
+                <div className="right py-2">
 
                     <div>
                         <h1>Right</h1>

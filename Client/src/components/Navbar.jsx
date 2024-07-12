@@ -5,7 +5,7 @@ import ThemeController from './subcomponents/ThemeController';
 import { useAuth } from '../contexts/AuthProvider';
 import { UserProfileNav } from './subcomponents/navbar/UserProfileNav';
 import { IoSearch } from "react-icons/io5";
-
+import { RiNotification2Line } from "react-icons/ri";
 
 /**
  * Represents the navigation bar component.
@@ -81,11 +81,18 @@ export default function Navbar() {
                     {/* Login Button */}
 
                     <div className='flex items-center gap-5'>
-                        <div className='mt-1' >
+                        <div className='mt-2' >
                             {/* Theme Controller */}
                             <ThemeController />
                         </div>
                         {/* Login Link */}
+                        {user && <div>
+                            <Link to='/notifications' className={`text-xl ${isDarkMode ? "text-[#afb0b1]" : "text-[#50555c]"} `}>
+                                <RiNotification2Line className='text-[1.7rem]' />
+                            </Link>
+
+                        </div>
+                        }
                         {!user ?
                             (<Link to='/login' className={`customBtn-primary ${isDarkMode ? "dark" : ""}`}>Login</Link>) :
                             (<UserProfileNav />)

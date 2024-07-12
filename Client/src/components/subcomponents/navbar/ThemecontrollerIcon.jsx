@@ -3,7 +3,7 @@ import ThemeController from './subcomponents/ThemeController';
 
 export const ThemecontrollerIcon = () => {
     return (
-        <div className="flex gap-2">
+        <div className="flex gap-2 ">
             {/* Theme Controller starts */}
             <div className='mr-2 flex align-center'>
 
