@@ -1,0 +1,72 @@
+import React from 'react'
+import { MdPermMedia } from "react-icons/md";
+import { RiCalendarScheduleFill } from "react-icons/ri";
+import { FaBlogger } from "react-icons/fa";
+
+
+/**
+ * Renders the middle section of the home page.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Object} props.user - The user object.
+ * @param {boolean} props.isDarkMode - Indicates whether the dark mode is enabled.
+ * @returns {JSX.Element} The rendered component.
+ */
+const HomeMid = ({ user, isDarkMode }) => {
+    return (
+        <div className='flex flex-col gap-8'>
+            <div className="top flex flex-col justify-center items-center">
+                <div className={`shadow-xl flex flex-col border border-[#3d3c39] w-[50rem]  rounded-xl  p-4 h-auto ${!isDarkMode && "bg-[#f9f8f8] border-none"}  gap-4 pt-6`}>
+                    <div className='flex ml-14' >
+
+                        <div className="w-12 rounded-full mt-[7px] ">
+                            <img alt={user?.name} src={user?.profileImageUrl} className='rounded-full' />
+                        </div>
+
+                        <div className="textarea bg-transparent">
+                            <textarea className={`w-[30rem] h-[3rem] bg-transparent px-4 pt-[7px] outline-none resize-none border ${isDarkMode ? "border-[#3d3c39]" : "border-[#b4b0a4]"} rounded-3xl placeholder:text-lg text-lg`} placeholder="What's on your mind?" />
+                        </div>
+
+                        <button className='cursor-pointer bg-[#69b4c3]  h-[40px] relative top-[0.69rem] w-[90px]  rounded-3xl text-[#fff] font-medium hover:bg-[#5b939e] '>
+                            Post
+                        </button>
+
+                    </div>
+
+                    <div className='ml-[8.7rem] flex gap-[5.7rem] mb-2 '>
+                        <div className='cursor-pointer flex gap-3'>
+                            <MdPermMedia className='text-[#4294ff] text-2xl' />
+
+                            <span className='font-medium'>Media</span>
+                        </div>
+                        <div className='cursor-pointer flex gap-3'>
+                            <RiCalendarScheduleFill className='text-[#c5801f] text-2xl' />
+
+                            <span className='font-medium'>Schedule</span>
+                        </div>
+                        <div className='cursor-pointer flex gap-3'>
+                            <FaBlogger className='text-[#a3b18a] text-2xl' />
+
+                            <span className='font-medium'>Blog</span>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+            </div>
+            <div className="bottom">
+                This is the bottom
+            </div>
+        </div>
+    )
+}
+
+
+
+export default HomeMid;
