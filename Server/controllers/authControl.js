@@ -10,6 +10,7 @@ const { setUser } = require('../services/auth');
  * @returns {Promise<void>} - A promise that resolves when the sign up process is complete.
  * @throws {Error} - If an error occurs during the sign up process.
  */
+
 const handleSignUp = async (req, res) => {
 
     const { name, email, password } = req.body;
@@ -52,6 +53,7 @@ const handleLogin = async (req, res) => {
 
         const isPasswordCorrect = await user.verifyPassword(password, user.password);
         if (!isPasswordCorrect) return res.json({ message: 'Incorrect password' });
+
 
         const sessionId = setUser(user);
         res.cookie('sess_', sessionId, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
@@ -107,8 +109,8 @@ const handleGoogleLogin = async (req, res) => {
 
 const handleAuthCheck = async (req, res) => {
     if (!req.user) return res.json({ message: 'Unauthorized' });
-    const { name, email, profileImageUrl, username } = req.user;
-    res.status(200).json({ message: 'Authenticated', user: { name, email, profileImageUrl, username } });
+    const { _id, name, email, profileImageUrl, username } = req.user;
+    res.status(200).json({ message: 'Authenticated', user: { _id, name, email, profileImageUrl, username } });
 }
 
 
