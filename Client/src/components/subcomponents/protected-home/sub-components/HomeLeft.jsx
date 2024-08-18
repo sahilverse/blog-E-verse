@@ -16,7 +16,7 @@ import { RiMessage3Fill } from "react-icons/ri";
 const HomeLeft = ({ user, isDarkMode }) => {
 
     return (
-        <div>
+        <div className="w-[30vh]">
             <div>
                 {/* Profile */}
                 <Link to={`/${user?.username}`}>

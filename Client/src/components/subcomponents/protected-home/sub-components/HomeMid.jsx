@@ -18,8 +18,6 @@ const HomeMid = ({ user, isDarkMode }) => {
     const [visibility, setVisibility] = useState('public');
     const [posts, setPosts] = useState([]);
 
-
-
     const handleInput = (e) => {
         setInputValue(e.target.value);
     };
@@ -46,7 +44,6 @@ const HomeMid = ({ user, isDarkMode }) => {
 
     const getPosts = async () => {
         try {
-
             const response = await axiosApi.get('/posts');
             setPosts(response.data.posts);
         } catch (error) {
@@ -54,16 +51,12 @@ const HomeMid = ({ user, isDarkMode }) => {
         }
     };
 
-
-
     useEffect(() => {
         getPosts();
     }, [posts]);
 
-
-
     return (
-        <div className='flex flex-col gap-4 '>
+        <div className='flex flex-col gap-8 '>
             <div className="top flex flex-col justify-center ">
                 <div className={` flex flex-col border border-[#3d3c39] w-[50rem] rounded-xl p-4 h-auto ${!isDarkMode && "bg-[#f9f8f8] border-none shadow-xl"} gap-4 pt-6`}>
                     <div className='flex ml-14'>
@@ -100,27 +93,18 @@ const HomeMid = ({ user, isDarkMode }) => {
                 </div>
                 {/* Bottom part (Below the Post Section (Feed) */}
             </div>
-            <div className="bottom mb-4">
-
-
-                {
-                    posts && posts.map((post) => (
-                        <div key={post._id} className={`flex flex-col border border-[#3d3c39] w-[50rem] rounded-xl p-4 h-auto ${!isDarkMode && "bg-[#f9f8f8] border-none shadow-xl"} gap-4 pt-6 mb-2 bg-[#1d232a]`}>
-                            <div className='flex ml-14'>
-                                <div className="w-12 rounded-full mt-[7px] cursor-pointer flex items-center">
-                                    <img alt={post.user?.name} src={post.user?.profileImageUrl} className='rounded-full' />
-                                </div>
-
-                                <p>{post.content}</p>
-
+            <div className="bottom h-auto overflow-auto">
+                {posts && posts.map((post) => (
+                    <div key={post._id} className={`shadow-xl flex flex-col border border-[#3d3c39] w-[50rem] rounded-xl p-4 h-auto ${!isDarkMode && "bg-[#f9f8f8] border-none"} gap-4 pt-6 mb-3`}>
+                        <div className='flex ml-14'>
+                            <div className="w-12 rounded-full mt-[7px] cursor-pointer">
+                                <img alt={post.user.name} src={post.user.profileImageUrl} className='rounded-full' />
                             </div>
-
+                            <div>{post.content}</div>
                         </div>
-                    ))
-                }
 
-
-
+                    </div>
+                ))}
             </div>
         </div>
     );

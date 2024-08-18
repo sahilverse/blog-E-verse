@@ -5,6 +5,9 @@ import { useTheme } from '../../contexts/ThemeProvider';
 import HomeMid from './sub-components/HomeMid';
 import HomeRight from './sub-components/HomeRight';
 
+
+
+
 export const HomeProtected = () => {
     const { user } = useAuth();
 
@@ -25,24 +28,51 @@ export const HomeProtected = () => {
 
 
     return (
-        <section className='mt-5'>
-            <div className="container mx-auto flex gap-14">
+
+        <>
+
+            <main className='mt-24  container mx-auto gap-40 flex '>
+
                 <div className="left ">
                     <HomeLeft user={user} isDarkMode={isDarkMode} />
                 </div>
 
-                <div className="mid w-[50%] py-2">
+                <div className="mid  flex justify-center ">
+
 
                     <HomeMid user={user} isDarkMode={isDarkMode} />
+
                 </div>
 
-                <div className="right py-2">
-
+                <div className="right">
                     <HomeRight user={user} isDarkMode={isDarkMode} />
+                </div>
+
+            </main>
+
+
+            {/*  <main className='mt-24  container mx-auto gap-8 relative'>
+
+                <div className="left  fixed w-[20rem] z-40">
+                    <HomeLeft user={user} isDarkMode={isDarkMode} />
+                </div>
+
+                <div className="mid  flex justify-center absolute right-0 left-0 ">
+
+
+                    <HomeMid user={user} isDarkMode={isDarkMode} />
 
                 </div>
-            </div>
 
-        </section>
-    )
+                <div className="right  fixed right-[12rem] ">
+                    <HomeRight user={user} isDarkMode={isDarkMode} />
+                </div>
+
+            </main> */}
+
+
+        </>
+
+
+    );
 }

@@ -8,8 +8,12 @@
 /*  */
 html{
     scroll-behavior: smooth;
-    
+    scrollbar-width: auto;  
+    scrollbar-color: rgb(100, 97, 97) transparent; 
+   
+
 }
+
 
 *,*::after,*::before{
     margin: 0;
@@ -21,6 +25,7 @@ html{
     --Roboto-font: 'Roboto', sans-serif;
     
 }
+
 
 
 
@@ -36,5 +41,28 @@ html{
     font-family: var(--Roboto-font);
     font-weight: 400;
 }
+
+
+/* hiding scroll bar */
+
+/* Hide scrollbar for WebKit browsers */
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.scrollbar-hidden {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For IE and Edge */
+}
+
+
+
+
+  
+
+
+  
+  
 
 

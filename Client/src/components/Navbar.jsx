@@ -7,6 +7,8 @@ import { UserProfileNav } from './subcomponents/navbar/UserProfileNav';
 import { IoSearch } from "react-icons/io5";
 import { RiNotification2Line } from "react-icons/ri";
 
+
+
 /**
  * Represents the navigation bar component.
  *
@@ -55,8 +57,8 @@ export default function Navbar() {
     return (
         <>
             {/* Navigation bar */}
-            <div className={`${isScroll ? 'scrolled' : ''} ${isDarkMode ? "bg-base-100" : "bg-background"}`}>
-                <div className="navbar lg:container mx-auto flex justify-between pt-6 ">
+            <div className={`scrolled ${isScroll && !user && "scrolledNoUser"} ${isDarkMode ? "bg-base-100" : "bg-background border-b-[#d3cdcd] scrolled"} ${user && "border-bottom"}`}>
+                <div className="navbar lg:container mx-auto flex justify-between ">
 
                     <div>
                         {/* Logo */}
