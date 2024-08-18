@@ -11,6 +11,8 @@ const connectDB = require('./config/connection');
 const authRoutes = require('./routes/authRoutes');
 const checkAuth = require('./middlewares/auth');
 
+const PostRoutes = require('./routes/postRoutes');
+
 // global middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -44,6 +46,8 @@ connectDB(process.env.MONGO_URI)
 
 // routes
 app.use('/', checkAuth, authRoutes);
+
+app.use('/posts', PostRoutes);
 
 /**
  * Start the server.

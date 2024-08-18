@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken');
  * @param {string} user.username - The username of the user
  * @returns {string} - The generated JWT.
  */
+
 const setUser = (user) => {
     const payload = {
         _id: user._id,
