@@ -43,6 +43,7 @@ const handleSignUp = async (req, res) => {
  * @returns {Promise<void>} - A promise that resolves when the login process is complete.
  * @throws {Error} - If an error occurs during the login process.
  */
+
 const handleLogin = async (req, res) => {
     const { email, password } = req.body;
     try {

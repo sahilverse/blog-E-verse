@@ -1,13 +1,15 @@
 const PostModel = require('../models/post');
 
+
 // Create a new post
 const createPost = async (req, res) => {
 
     const { user, content, image, visibility, scheduledAt } = req.body;
     try {
         const newPost = new PostModel({ user, content, image, visibility, scheduledAt });
-        await newPost.save();
-        res.status(201).json({ message: 'Post created successfully', post: newPost });
+        const post = await newPost.save();
+        await post.populate('user', 'name email profileImageUrl username');
+        res.status(201).json({ message: 'Post created successfully', post });
     } catch (error) {
         res.status(500).json({ error: error.message });
         console.log(error);
@@ -55,15 +57,15 @@ const deletePost = async (req, res) => {
     }
 }
 
-
 // Like or unlike a post
 const likeandUnlikePost = async (req, res) => {
     const { postId } = req.params;
-    const { user } = req.body;
+    const { userId } = req.body;
+
 
     try {
-        if (!user) return res.status(400).json({ message: 'User not found' });
-        const post = await PostModel.findById(postId);
+        if (!userId) return res.status(400).json({ message: 'User not found' });
+        const post = await PostModel.findById(postId).populate('user', 'name email profileImageUrl username');
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
@@ -71,7 +73,7 @@ const likeandUnlikePost = async (req, res) => {
         const likeIndex = post.likes.indexOf(userId);
 
         if (likeIndex === -1) {
-            post.likes.push(user);
+            post.likes.push(userId);
         } else {
             post.likes.splice(likeIndex, 1);
         }
@@ -87,16 +89,16 @@ const likeandUnlikePost = async (req, res) => {
 // Comment on a post
 const commentOnPost = async (req, res) => {
     const { postId } = req.params;
-    const { user, content } = req.body;
+    const { userId, content } = req.body;
 
     try {
-        if (!user) return res.status(400).json({ message: 'User not found' });
+        if (!userId) return res.status(400).json({ message: 'User not found' });
         const post = await PostModel.findById(postId);
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
 
-        post.comments.push({ user, content });
+        post.comments.push({ userId, content });
         await post.save();
         return res.status(200).json({ message: 'Comment added successfully', post });
 
@@ -108,16 +110,16 @@ const commentOnPost = async (req, res) => {
 // Share a post
 const sharePost = async (req, res) => {
     const { postId } = req.params;
-    const { user } = req.body;
+    const { userId } = req.body;
 
     try {
-        if (!user) return res.status(400).json({ message: 'User not found' });
+        if (!userId) return res.status(400).json({ message: 'User not found' });
         const post = await PostModel.findById(postId);
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
 
-        post.shares.push(user);
+        post.shares.push(userId);
         await post.save();
         return res.status(200).json({ message: 'Post shared successfully', post });
 
