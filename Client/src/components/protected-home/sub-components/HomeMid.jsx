@@ -110,7 +110,7 @@ const HomeMid = ({ user, isDarkMode }) => {
         };
 
         try {
-            if (!newPost.content) {
+            if (!newPost.content || !newPost.image) {
                 return;
             }
             const response = await axiosApi.post('/posts', newPost);
