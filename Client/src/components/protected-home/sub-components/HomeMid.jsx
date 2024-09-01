@@ -110,8 +110,8 @@ const HomeMid = ({ user, isDarkMode }) => {
         };
 
         try {
-            if (!newPost.content || !newPost.image) {
-                return;
+            if (!newPost.content && !newPost.image) {
+                return new Error('Post content or image is required');
             }
             const response = await axiosApi.post('/posts', newPost);
             setPosts([response.data.post, ...posts]);
