@@ -31,44 +31,24 @@ export const HomeProtected = () => {
 
         <>
 
-            <main className='mt-24  container mx-auto gap-40 flex '>
+            <main className='mt-24  container mx-auto  flex  gap-10'>
 
-                <div className="left ">
+                <div className="left flex-[0.25]">
                     <HomeLeft user={user} isDarkMode={isDarkMode} />
                 </div>
 
-                <div className="mid  flex justify-center ">
+                <div className="mid flex-[0.5]">
 
 
                     <HomeMid user={user} isDarkMode={isDarkMode} />
 
                 </div>
 
-                <div className="right">
+                <div className="right flex-[0.25]">
                     <HomeRight user={user} isDarkMode={isDarkMode} />
                 </div>
 
             </main>
-
-
-            {/*  <main className='mt-24  container mx-auto gap-8 relative'>
-
-                <div className="left  fixed w-[20rem] z-40">
-                    <HomeLeft user={user} isDarkMode={isDarkMode} />
-                </div>
-
-                <div className="mid  flex justify-center absolute right-0 left-0 ">
-
-
-                    <HomeMid user={user} isDarkMode={isDarkMode} />
-
-                </div>
-
-                <div className="right  fixed right-[12rem] ">
-                    <HomeRight user={user} isDarkMode={isDarkMode} />
-                </div>
-
-            </main> */}
 
 
         </>
