@@ -51,7 +51,7 @@ export const Login = () => {
      */
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
-        console.log(user)
+
 
     }
 

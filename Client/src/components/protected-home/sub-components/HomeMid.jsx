@@ -6,7 +6,7 @@ import axiosApi from '../../../helpers/axiosConfig';
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa6";
 import { BiComment } from "react-icons/bi";
 import { PiShareFatBold } from "react-icons/pi";
-
+import { PiDotsThreeVerticalBold } from "react-icons/pi";
 
 
 /**
@@ -21,7 +21,7 @@ import { PiShareFatBold } from "react-icons/pi";
 const HomeMid = ({ user, isDarkMode }) => {
     const [inputValue, setInputValue] = useState('');
     const [visibility, setVisibility] = useState('public');
-    const [image, setImage] = useState(null);
+    const [uploadImage, setUploadImage] = useState(null);
     const [posts, setPosts] = useState([]);
 
 
@@ -58,18 +58,16 @@ const HomeMid = ({ user, isDarkMode }) => {
             return `${hoursDifference}h ago`;
         } else if (daysDifference === 1) {
             return '1d ago';
-        } else if (daysDifference < 2) {
+        } else if (daysDifference > 1) {
             return postDate.toLocaleDateString('en-GB', {
                 day: 'numeric',
                 month: 'short',
-                year: 'numeric',
+                year: 'numeric', x
             });
         }
     };
 
     const handleLikePost = async (postId) => {
-
-
 
         try {
 
@@ -103,10 +101,10 @@ const HomeMid = ({ user, isDarkMode }) => {
 
     const handlePost = async () => {
         const newPost = {
-            content: inputValue,
-            user: user,
+            content: inputValue || null,
+            user: user._id,
             visibility: visibility,
-            image: null,
+            image: uploadImage || null,
         };
 
         try {
@@ -159,11 +157,11 @@ const HomeMid = ({ user, isDarkMode }) => {
                     </div>
                     <div className='ml-[8.7rem] flex gap-[5.7rem] mb-2'>
                         <div className='cursor-pointer flex gap-3 items-center'>
-                            <label htmlFor='media-upload' className='flex gap-3 items-center cursor-pointer'>
+                            <label htmlFor='image' className='flex gap-3 items-center cursor-pointer'>
                                 <MdPermMedia className='text-[#4294ff] text-2xl' />
                                 <span className='font-medium'>Media</span>
                             </label>
-                            <input id='media-upload' type='file' accept='image/*' className='hidden' onChange={handleImageChange} />
+                            <input id='image' name='image' type='file' accept='image/*' className='hidden' onChange={handleImageChange} />
                         </div>
 
                         <div className='cursor-pointer flex gap-3'>
@@ -181,18 +179,28 @@ const HomeMid = ({ user, isDarkMode }) => {
                 {posts && posts.map((post) => (
                     <div key={post._id} className={`flex flex-col border border-[#3d3c39] w-[50rem] rounded-xl p-4 h-auto ${!isDarkMode && "bg-[#f9f8f8] border-none shadow-xl"} gap-4 pt-6 mb-2 bg-[#1d232a]`}>
                         <div className='px-14'>
-                            <div className="w-10 rounded-full mt-[7px] cursor-pointer flex items-center gap-3">
-                                <img alt={post.user.name} src={post.user.profileImageUrl} className='rounded-full' />
-                                <div className='flex flex-col'>
-                                    <span className='whitespace-nowrap font-medium'>{post.user.name}</span>
-                                    <p className='text-[#a3a4a6] text-xs whitespace-nowrap'>
-                                        {formatTime(post.createdAt)}
-                                    </p>
+                            <div className='flex justify-between'>
+                                <div className="w-10 rounded-full mt-[7px] cursor-pointer flex items-center gap-3">
+                                    <img alt={post.user.name} src={post.user.profileImageUrl} className='rounded-full' />
+                                    <div className='flex flex-col'>
+                                        <span className='whitespace-nowrap font-normal'>{post.user.name}</span>
+                                        <p className='text-[#a3a4a6] text-xs whitespace-nowrap'>
+                                            {formatTime(post.createdAt)}
+                                        </p>
+                                    </div>
                                 </div>
+                                <div>
+                                    <PiDotsThreeVerticalBold className='text-[#d6d8dc] cursor-pointer text-3xl rounded-full hover:bg-[#6c758656] p-1 mt-1' />
+
+                                </div>
+
                             </div>
                             <div className="content flex flex-col gap-3">
-                                <p className='mt-4 text-base font-normal ml-2 text-justify'>{post.content}</p>
-                                <img src="demo.jpg" alt='post' className='cursor-pointer rounded-lg' />
+                                <p className='mt-4 text-base  ml-2 text-justify'>{post.content}</p>
+                                <div className='w-full'>
+
+                                    {/* <img src="demo.jpg" alt='post' className='cursor-pointer rounded-lg w-full h-full' /> */}
+                                </div>
                             </div>
                             <div className='flex gap-4 mt-4 justify-around pt-3' style={{ borderTop: "1px solid #424242" }}>
                                 <span className='text-[#a3a4a6] cursor-pointer flex gap-2 items-center' onClick={() => handleLikePost(post._id)}>
