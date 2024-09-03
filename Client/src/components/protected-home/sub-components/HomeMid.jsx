@@ -9,6 +9,7 @@ import { PiShareFatBold } from "react-icons/pi";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 
 
+
 /**
  * Renders the middle section of the home page.
  *
@@ -62,12 +63,14 @@ const HomeMid = ({ user, isDarkMode }) => {
             return postDate.toLocaleDateString('en-GB', {
                 day: 'numeric',
                 month: 'short',
-                year: 'numeric', x
+                year: 'numeric',
             });
         }
     };
 
     const handleLikePost = async (postId) => {
+
+
 
         try {
 
