@@ -23,12 +23,14 @@ const HomeMid = ({ user, isDarkMode }) => {
     const [inputValue, setInputValue] = useState('');
     const [visibility, setVisibility] = useState('public');
     const [uploadImage, setUploadImage] = useState(null);
+    const [previewImage, setPreviewImage] = useState(null);
     const [posts, setPosts] = useState([]);
 
 
     const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
-        console.log(e.target.files[0]);
+        const file = e.target.files[0];
+        setUploadImage(file);
+        setPreviewImage(URL.createObjectURL(file));
     }
 
     const formatCount = (number) => {
@@ -70,13 +72,8 @@ const HomeMid = ({ user, isDarkMode }) => {
 
     const handleLikePost = async (postId) => {
 
-
-
         try {
-
             const response = await axiosApi.post(`/posts/${postId}/like`, { userId: user._id });
-
-
             const updatedPosts = posts.map((post) => {
                 if (post._id === postId) {
                     return response.data.post;
@@ -84,15 +81,11 @@ const HomeMid = ({ user, isDarkMode }) => {
                 return post;
             }
             );
-
-
             setPosts(updatedPosts);
 
         } catch (error) {
             console.error('Error liking post:', error);
         }
-
-
 
     };
 
@@ -103,23 +96,31 @@ const HomeMid = ({ user, isDarkMode }) => {
     };
 
     const handlePost = async () => {
-        const newPost = {
-            content: inputValue || null,
-            user: user._id,
-            visibility: visibility,
-            image: uploadImage || null,
-        };
+        if (!inputValue && !uploadImage) {
+            return new Error('Post content or image is required');
+        }
+
+        const formData = new FormData();
+        formData.append('content', inputValue || "");
+        formData.append('user', user._id);
+        formData.append('visibility', visibility);
+        formData.append('image', uploadImage || null);
 
         try {
-            if (!newPost.content && !newPost.image) {
-                return new Error('Post content or image is required');
-            }
-            const response = await axiosApi.post('/posts', newPost);
+            const response = await axiosApi.post('/posts', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
             setPosts([response.data.post, ...posts]);
             setInputValue('');
+            setUploadImage(null);
+            setPreviewImage(null);
         } catch (error) {
             console.error('Error posting:', error);
         }
+
+
     };
 
     const getPosts = async () => {
@@ -164,7 +165,10 @@ const HomeMid = ({ user, isDarkMode }) => {
                                 <MdPermMedia className='text-[#4294ff] text-2xl' />
                                 <span className='font-medium'>Media</span>
                             </label>
+
+
                             <input id='image' name='image' type='file' accept='image/*' className='hidden' onChange={handleImageChange} />
+
                         </div>
 
                         <div className='cursor-pointer flex gap-3'>
@@ -175,9 +179,12 @@ const HomeMid = ({ user, isDarkMode }) => {
                             <FaBlogger className='text-[#a3b18a] text-2xl' />
                             <span className='font-medium'>Blog</span>
                         </div>
+
+
                     </div>
                 </div>
             </div>
+
             <div className="bottom mb-4">
                 {posts && posts.map((post) => (
                     <div key={post._id} className={`flex flex-col border border-[#3d3c39] w-[50rem] rounded-xl p-4 h-auto ${!isDarkMode && "bg-[#f9f8f8] border-none shadow-xl"} gap-4 pt-6 mb-2 bg-[#1d232a]`}>
@@ -200,9 +207,9 @@ const HomeMid = ({ user, isDarkMode }) => {
                             </div>
                             <div className="content flex flex-col gap-3">
                                 <p className='mt-4 text-base  ml-2 text-justify'>{post.content}</p>
-                                <div className='w-full'>
+                                <div className='w-10/12'>
 
-                                    {/* <img src="demo.jpg" alt='post' className='cursor-pointer rounded-lg w-full h-full' /> */}
+                                    {post.image && <img src={post.image} alt='post' className='cursor-pointer rounded-xl w-full h-full' />}
                                 </div>
                             </div>
                             <div className='flex gap-4 mt-4 justify-around pt-3' style={{ borderTop: "1px solid #424242" }}>
@@ -210,6 +217,7 @@ const HomeMid = ({ user, isDarkMode }) => {
                                     {
                                         post.likes.includes(user._id) ? <FaThumbsUp className='text-[#a3a4a6] text-lg' /> : <FaRegThumbsUp className='text-[#a3a4a6] text-lg' />}
                                     <span className='text-[#a3a4a6]'>{formatCount(post.likes.length)}</span>
+
                                 </span>
                                 <span className='text-[#a3a4a6] cursor-pointer flex gap-2 items-center'>
                                     <BiComment className='text-[#a3a4a6] text-xl mt-1' />
