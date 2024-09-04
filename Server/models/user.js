@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const PostModel = require('./post');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -24,7 +25,7 @@ const userSchema = new mongoose.Schema({
     },
     profileImageUrl: {
         type: String,
-        default: `http://localhost:${process.env.PORT}/uploads/user.png`
+        default: `https://res.cloudinary.com/dlmvup7x3/image/upload/v1725426900/user_qch3yu.png`
     },
     googleId: {
         type: String,
@@ -115,6 +116,36 @@ userSchema.pre('save', async function (next) {
 
     next();
 });
+
+// removes user from posts, likes, shares, and comments when user is deleted
+userSchema.pre('remove', async function (next) {
+    const userId = this._id;
+
+    try {
+        // Remove userId from the likes array
+        await PostModel.updateMany(
+            { likes: userId },
+            { $pull: { likes: userId } }
+        );
+
+        // Remove userId from the shares array
+        await PostModel.updateMany(
+            { shares: userId },
+            { $pull: { shares: userId } }
+        );
+
+        // Remove comments made by the user
+        await PostModel.updateMany(
+            { 'comments.user': userId },
+            { $pull: { comments: { user: userId } } }
+        );
+
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 const User = mongoose.model('User', userSchema);
 

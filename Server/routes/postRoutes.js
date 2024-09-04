@@ -1,11 +1,15 @@
 const express = require('express');
-
-const router = express.Router();
-
+const upload = require('../config/multer');
 const { createPost, getPosts, updatePost, deletePost, likeandUnlikePost, commentOnPost, sharePost } = require('../controllers/postControl');
 
 
-router.post('/', createPost);
+const router = express.Router();
+
+
+
+
+
+router.post('/', upload.single('image'), createPost);
 
 router.get('/', getPosts);
 

@@ -20,12 +20,14 @@ const postSchema = new mongoose.Schema({
 
     likes: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     }],
     comments: [{
         user: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            required: true
         },
         content: {
             type: String,
@@ -35,7 +37,8 @@ const postSchema = new mongoose.Schema({
 
     shares: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     }],
 
     visibility: {

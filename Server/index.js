@@ -25,8 +25,6 @@ app.use(cors(
 app.use(cookieParser());
 
 
-// Serve static files from the 'uploads' directory
-app.use('/uploads', express.static('uploads'));
 
 /**
  * Connect to the database.

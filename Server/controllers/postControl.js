@@ -1,20 +1,66 @@
 const PostModel = require('../models/post');
 
+const cloudinary = require('cloudinary').v2;
+const streamifier = require('streamifier');
+
+
+// cloudinary configuration
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+
+// Helper function to upload image to Cloudinary
+const uploadImageToCloudinary = (imageBuffer) => {
+    return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream((error, result) => {
+            if (error) {
+                return reject(error);
+            }
+            resolve(result.secure_url);
+        });
+
+        streamifier.createReadStream(imageBuffer).pipe(uploadStream);
+    });
+};
 
 // Create a new post
 const createPost = async (req, res) => {
+    const { user, content, visibility, scheduledAt } = req.body;
+    const imageFile = req.file;
 
-    const { user, content, image, visibility, scheduledAt } = req.body;
+
+
+
     try {
-        const newPost = new PostModel({ user, content, image, visibility, scheduledAt });
+        let imageUrl = null;
+
+        // Upload the image to Cloudinary if it exists
+        if (imageFile) {
+            try {
+                imageUrl = await uploadImageToCloudinary(imageFile.buffer);
+            } catch (uploadError) {
+                console.error('Cloudinary upload error:', uploadError);
+                return res.status(500).json({ error: 'Failed to upload image' });
+            }
+        }
+
+        // Save the post with or without the image URL
+        const newPost = new PostModel({ user, content, image: imageUrl, visibility, scheduledAt });
         const post = await newPost.save();
         await post.populate('user', 'name email profileImageUrl username');
+
+        // console.log('Post created successfully:', post);
+
         res.status(201).json({ message: 'Post created successfully', post });
     } catch (error) {
+        console.error('Error creating post:', error);
         res.status(500).json({ error: error.message });
-        console.log(error);
     }
-}
+};
+
 
 // Get all posts
 const getPosts = async (req, res) => {
