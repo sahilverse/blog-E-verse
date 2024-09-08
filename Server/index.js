@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./config/connection');
 const authRoutes = require('./routes/authRoutes');
 const checkAuth = require('./middlewares/auth');
-
+const userRoutes = require('./routes/userRoutes');
 const PostRoutes = require('./routes/postRoutes');
 
 // global middlewares
@@ -46,6 +46,7 @@ connectDB(process.env.MONGO_URI)
 app.use('/', checkAuth, authRoutes);
 
 app.use('/posts', PostRoutes);
+app.use('/user', userRoutes);
 
 /**
  * Start the server.
